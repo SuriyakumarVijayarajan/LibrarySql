@@ -7,7 +7,6 @@ public class Users {
 	private String city;
 	private String date_register;
 	private String date_expire;
-	private String user_role;
 	private String password;
 	public String getUser_id() {
 		return user_id;
@@ -39,26 +38,26 @@ public class Users {
 	public void setDate_expire(String date_expire) {
 		this.date_expire = date_expire;
 	}
-	public String getUser_role() {
-		return user_role;
-	}
-	public void setUser_role(String user_role) {
-		this.user_role = user_role;
-	}
+//	public String getUser_role() {
+//		return user_role;
+//	}
+//	public void setUser_role(String user_role) {
+//		this.user_role = user_role;
+//	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Users(String user_id, String user_name, String city, String date_register, String date_expire, String user_role, String password) {
+	public Users(String user_id, String user_name, String city, String date_register,String date_expire,String password) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.city = city;
 		this.date_register = date_register;
 		this.date_expire = date_expire;
-		this.user_role = user_role;
+		//this.user_role = user_role;
 		this.password = password;
 	}
 	public Users() {

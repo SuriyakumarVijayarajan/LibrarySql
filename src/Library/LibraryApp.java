@@ -30,18 +30,80 @@ public class LibraryApp {
 			break;
 		case "register":
 			user = new UsersDao();
-			System.out.println("Enter your user_id,user_name,city,date_register,date_expire,user_role,password");
-//			String user_id=sc.nextLine();
-//			String user_name=sc.nextLine();
-//			String city=sc.nextLine();
-//			String date_register=sc.nextLine();
-//			String date_expire=sc.nextLine();
-//			String user_role=sc.nextLine();
-//			String password=sc.nextLine();
-			String pDetail=sc.nextLine();
-			Users p1=new Users(pDetail.split(",")[0],pDetail.split(",")[1],
-					pDetail.split(",")[2],pDetail.split(",")[3],pDetail.split(",")[4],
-					pDetail.split(",")[5],pDetail.split(",")[6]);
+			System.out.println("Enter your user_id,user_name,city,date_register,date_expire,password");
+			String user_id=null;
+			String user_name=null;
+			boolean flag=false;
+			do {
+				System.out.println("Enter User_id");
+				user_id=sc.nextLine();
+				if(user_id.matches("[A-Za-z0-9]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid user id");
+				
+			}while(flag==false);
+			flag=false;
+			do {
+				System.out.println("Enter User_Name");
+				user_name=sc.nextLine();
+				if(user_name.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid user name");
+				
+			}while(flag==false);
+			String city=null;
+			flag=false;
+			do {
+				System.out.println("Enter city");
+				city=sc.nextLine();
+				if(city.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid city");
+				
+			}while(flag==false);
+			String date_register=null;
+			flag=false;
+			do {
+				System.out.println("Enter date_register");
+				date_register=sc.nextLine();
+				if(date_register.matches("([0-9]+[-]+[0-9]+[-]+[0-9]){10}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid register date");
+				
+			}while(flag==false);
+			String date_expire=null;
+			flag=false;
+			do {
+				System.out.println("Enter date_expire");
+				date_expire=sc.nextLine();
+				if(date_expire.matches("([0-9]+[-]+[0-9]+[-]+[0-9]){10}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid expire date");
+				
+			}while(flag==false);
+			String password=null;
+			flag=false;
+			do {
+				System.out.println("Enter password");
+				date_expire=sc.nextLine();
+				if(password.matches("([a-zA-Z0-9]+[@#$!%&+_=-]+[[0-9a-zA-Z]){10}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid password");
+				
+			}while(flag==false);
+			Users p1=new Users(user_id,user_name,city,date_register,date_expire,password);
 			boolean a=user.insert(p1);
 			if(a) {
 				System.out.println("Registration successful");

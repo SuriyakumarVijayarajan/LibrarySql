@@ -21,7 +21,7 @@ public class TestMain {
 		case 1:
 			Users p1=new Users(pDetail.split(",")[0],pDetail.split(",")[1],
 			pDetail.split(",")[2],pDetail.split(",")[3],pDetail.split(",")[4],
-			pDetail.split(",")[5],pDetail.split(",")[6]);
+			pDetail.split(",")[5]);
 			uDao.insert(p1);
 			break;
 			

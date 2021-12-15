@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class UsersDao {
 	public boolean insert(Users p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into user_details (user_id,user_name,city,date_register,date_expire,user_role,password) values (?,?,?,?,?,?,?)";
+		String query="insert into user_details (user_id,user_name,city,date_register,date_expire,password) values (?,?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -16,8 +16,8 @@ public class UsersDao {
 		pstmt.setString(3, p1.getCity());
 		pstmt.setString(4, p1.getDate_register());
 		pstmt.setString(5, p1.getDate_expire());
-		pstmt.setString(6, p1.getUser_role());
-		pstmt.setString(7, p1.getPassword());
+	//	pstmt.setString(6, p1.getUser_role());
+		pstmt.setString(6, p1.getPassword());
 		
 		int i = pstmt.executeUpdate();
 		if(i>0)
