@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDao {
-	public void insert(Users p1) throws SQLException, ClassNotFoundException {
+	public boolean insert(Users p1) throws SQLException, ClassNotFoundException {
 		
 		String query="insert into user_details (user_id,user_name,city,date_register,date_expire,user_role,password) values (?,?,?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
@@ -20,8 +20,12 @@ public class UsersDao {
 		pstmt.setString(7, p1.getPassword());
 		
 		int i = pstmt.executeUpdate();
+		if(i>0)
+			return true;
 		
-		System.out.println(i+"rows inserted successfully");
+		return false;
+		
+		//System.out.println(i+"rows inserted successfully");
 		
 	}
 	
