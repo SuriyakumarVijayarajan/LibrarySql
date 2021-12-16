@@ -7,17 +7,15 @@ import java.sql.SQLException;
 public class UsersDao {
 	public boolean insert(Users p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into user_details (user_id,user_name,city,date_register,date_expire,password) values (?,?,?,?,?,?)";
+		String query="insert into user_details (user_name,city,password,mobile_no,email_id) values (?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
-		pstmt.setString(1,p1.getUser_id());
-		pstmt.setString(2, p1.getUser_name());
-		pstmt.setString(3, p1.getCity());
-		pstmt.setString(4, p1.getDate_register());
-		pstmt.setString(5, p1.getDate_expire());
-	//	pstmt.setString(6, p1.getUser_role());
-		pstmt.setString(6, p1.getPassword());
+		pstmt.setString(1,p1.getUser_name());
+		pstmt.setString(2, p1.getCity());
+		pstmt.setString(3,p1.getPassword());
+		pstmt.setLong(4, p1.getMobile_no());
+		pstmt.setString(5, p1.getEmail_id());
 		
 		int i = pstmt.executeUpdate();
 		if(i>0)
@@ -29,31 +27,7 @@ public class UsersDao {
 		
 	}
 	
-	public void update(Users p2) throws SQLException, ClassNotFoundException {
-		
-		String query="update products set category_id=? where product_id=100";
-		Connection con=ConnectionUtil.getDBConnect();
-		PreparedStatement pstmt = con.prepareStatement(query);
-		
-		pstmt.setString(1,p2.getPassword());
-		
-         int i = pstmt.executeUpdate();
-		
-		System.out.println(i+"rows inserted successfully");
-	}
 	
-public void delete(Users p2) throws SQLException, ClassNotFoundException {
-		
-		String query="delete products where category_id=?";
-		Connection con=ConnectionUtil.getDBConnect();
-		PreparedStatement pstmt = con.prepareStatement(query);
-		
-		pstmt.setString(1,p2.getPassword());
-		
-         int i = pstmt.executeUpdate();
-		
-		System.out.println(i+"rows deleted successfully");
-	}
 public String fetch(String uname,String pass) throws ClassNotFoundException, SQLException {
 	
 	String query="select user_name,password from user_details where user_name in ? and password in ?";
@@ -73,6 +47,32 @@ public String fetch(String uname,String pass) throws ClassNotFoundException, SQL
 	return "invalid";
 	
 }
+
+//public void update(Users p2) throws SQLException, ClassNotFoundException {
+//	
+//	String query="update products set category_id=? where product_id=100";
+//	Connection con=ConnectionUtil.getDBConnect();
+//	PreparedStatement pstmt = con.prepareStatement(query);
+//	
+//	pstmt.setString(1,p2.getPassword());
+//	
+//     int i = pstmt.executeUpdate();
+//	
+//	System.out.println(i+"rows inserted successfully");
+//}
+//
+//public void delete(Users p2) throws SQLException, ClassNotFoundException {
+//	
+//	String query="delete products where category_id=?";
+//	Connection con=ConnectionUtil.getDBConnect();
+//	PreparedStatement pstmt = con.prepareStatement(query);
+//	
+//	pstmt.setString(1,p2.getPassword());
+//	
+//     int i = pstmt.executeUpdate();
+//	
+//	System.out.println(i+"rows deleted successfully");
+//}
 
 }
 

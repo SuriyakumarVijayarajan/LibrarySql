@@ -1,6 +1,8 @@
 package Library;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import Book_Details.*;
 import  User_Details.*;
 
 public class LibraryApp {
@@ -8,43 +10,17 @@ public class LibraryApp {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter your wish 1.login 2.register");
+		System.out.println("Enter your wish 1.register 2.login");
 		String choice=sc.nextLine();
 		UsersDao user = null;
 		switch(choice) {
-		case "login":
-			System.out.println("Enter your username and password");		
-			String uname=sc.nextLine();
-			String pword=sc.nextLine();
-			
-			user = new UsersDao();
-			String val = user.fetch(uname, pword);
-			System.out.println(val);
-			if(val.equals("user")) {
-				System.out.println("Welcome user");
-				
-			}else if(val.equals("admin")){
-				System.out.println("welcome admin");
-				
-			}
-			break;
+		
 		case "register":
+		case "1":
 			user = new UsersDao();
-			System.out.println("Enter your user_id,user_name,city,date_register,date_expire,password");
-			String user_id=null;
+			System.out.println("Enter your user_name,city,date_register,password,mobile_no,email_id");
+			boolean flag =false;
 			String user_name=null;
-			boolean flag=false;
-			do {
-				System.out.println("Enter User_id");
-				user_id=sc.nextLine();
-				if(user_id.matches("[A-Za-z0-9]{2,}")){
-					  flag=true;  
-				  }
-				else
-					System.out.println("Please enter Valid user id");
-				
-			}while(flag==false);
-			flag=false;
 			do {
 				System.out.println("Enter User_Name");
 				user_name=sc.nextLine();
@@ -67,50 +43,93 @@ public class LibraryApp {
 					System.out.println("Please enter Valid city");
 				
 			}while(flag==false);
-			String date_register=null;
-			flag=false;
-			do {
-				System.out.println("Enter date_register");
-				date_register=sc.nextLine();
-				if(date_register.matches("([0-9]+[-]+[0-9]+[-]+[0-9]){10}")){
-					  flag=true;  
-				  }
-				else
-					System.out.println("Please enter Valid register date");
-				
-			}while(flag==false);
-			String date_expire=null;
-			flag=false;
-			do {
-				System.out.println("Enter date_expire");
-				date_expire=sc.nextLine();
-				if(date_expire.matches("([0-9]+[-]+[0-9]+[-]+[0-9]){10}")){
-					  flag=true;  
-				  }
-				else
-					System.out.println("Please enter Valid expire date");
-				
-			}while(flag==false);
 			String password=null;
 			flag=false;
 			do {
 				System.out.println("Enter password");
-				date_expire=sc.nextLine();
-				if(password.matches("([a-zA-Z0-9]+[@#$!%&+_=-]+[[0-9a-zA-Z]){10}")){
+				password=sc.nextLine();
+				if(password.matches("(?=.*[0-9])(?=.*[@#$%*!^()_+])(?=.*[a-z])(?=.*[A-Z]).{8,}")){
 					  flag=true;  
 				  }
 				else
 					System.out.println("Please enter Valid password");
 				
 			}while(flag==false);
-			Users p1=new Users(user_id,user_name,city,date_register,date_expire,password);
+			Long mobile_no=null;
+			flag=false;
+			String phno=null;
+			do {
+				System.out.println("Enter Phone Number");
+				phno = sc.nextLine();
+				if(phno.matches("[6-9][0-9]{9}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid Phone number");
+				
+			}while(flag==false);
+			mobile_no =Long.parseLong(phno);
+			String email_id=null;
+			flag=false;
+			do {
+				System.out.println("Enter email_id");
+				email_id=sc.nextLine();
+				if(email_id.matches("([a-zA-Z0-9]+[@][a-zA-Z]+[.][a-z]+{15,40})")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid email");
+				
+			}while(flag==false);
+			Users p1=new Users(user_name,city,password,mobile_no,email_id);
 			boolean a=user.insert(p1);
 			if(a) {
 				System.out.println("Registration successful");
-				break;
 			}
-			else
+			else {
 				System.out.println("Not registered");
+			    break;
+			}
+			
+		case "login":
+		case "2":
+			System.out.println("Enter your username and password");		
+			flag =false;
+			user_name=null;
+			do {
+				System.out.println("Enter User_Name");
+				user_name=sc.nextLine();
+				if(user_name.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid user name");
+				
+			}while(flag==false);
+			password=null;
+			flag=false;
+			do {
+				System.out.println("Enter password");
+				password=sc.nextLine();
+				if(password.matches("(?=.*[0-9])(?=.*[@#$%*!^()_+])(?=.*[a-z])(?=.*[A-Z]).{8,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid password");
+				
+			}while(flag==false);
+			
+			user = new UsersDao();
+			String val = user.fetch(user_name, password);
+			System.out.println(val);
+			if(val.equals("user")) {
+				System.out.println("Welcome user");
+				libUser();
+				
+			}else if(val.equals("admin")){
+				System.out.println("welcome admin");
+				
+			}
 			break;
 			
 			default:
@@ -121,6 +140,27 @@ public class LibraryApp {
 			
 		}
 
+	}
+	
+	public static void libUser() throws ClassNotFoundException, SQLException {
+		BooksDao user=new BooksDao();
+		System.out.println("1.Borrow Book, 2.Return Book ");
+		Scanner sc=new Scanner(System.in);
+		
+		int choice = Integer.parseInt(sc.nextLine());
+		switch(choice) {
+		case 1:
+			System.out.println("Search book by 1.Author 2.Category");
+			int choice1 = Integer.parseInt(sc.nextLine());
+			switch(choice1) {
+			case 1:
+				System.out.println("Enter Author Name");
+				String author=sc.nextLine();
+				user.authorFetch(author);
+			}
+			
+		}
+		
 	}
 
 }

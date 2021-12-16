@@ -24,7 +24,7 @@ public class TestMain {
 			case 1:
 				BookIssue p1=new BookIssue(pDetail.split(",")[0],pDetail.split(",")[1],
 				pDetail.split(",")[2],pDetail.split(",")[3],pDetail.split(",")[4],
-				pDetail.split(",")[5],pDetail.split(",")[6]);
+				pDetail.split(",")[5]);
 				biDao.insert(p1);
 				break;
 				
