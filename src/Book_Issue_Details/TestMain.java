@@ -22,26 +22,26 @@ public class TestMain {
 			switch(choice){
 				
 			case 1:
-				BookIssue p1=new BookIssue(pDetail.split(",")[0],pDetail.split(",")[1],
+				BookIssue p1=new BookIssue(Integer.parseInt(pDetail.split(",")[0]),Integer.parseInt(pDetail.split(",")[1]),
 				pDetail.split(",")[2],pDetail.split(",")[3],pDetail.split(",")[4],
-				pDetail.split(",")[5]);
+				pDetail.split(",")[5],Integer.parseInt(pDetail.split(",")[6]));
 				biDao.insert(p1);
 				break;
 				
-			case 2:
-							
-				Users p2=new Users((pDetail));
-					
-				uDao.update(p2);
-			    break;
-				
-			case 3:            
-					Users p3=new Users((pDetail));
-					uDao.delete(p3);
-					break;
-					
-			}				
-					
+//			case 2:
+//							
+//				Users p2=new Users((pDetail));
+//					
+//				uDao.update(p2);
+//			    break;
+//				
+//			case 3:            
+//					Users p3=new Users((pDetail));
+//					uDao.delete(p3);
+//					break;
+//					
+//			}				
+//					
 					
 			
 
@@ -49,5 +49,5 @@ public class TestMain {
 
 	
 
-
+		}
 }

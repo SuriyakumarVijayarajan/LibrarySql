@@ -42,9 +42,11 @@ insert into supplier_details values ('003','vel co','trichy',98909);
 
 
 CREATE TABLE FINE_DETAILS(
-FINE_RANGE VARCHAR(3),
+FINE_RANGE int,
 FINE_AMOUNT DECIMAL(10,2) NOT NULL
 );
+
+drop table fine_Details;
 ALTER TABLE FINE_DETAILS MODIFY FINE_RANGE VARCHAR(20);
 DESC FINE_DETAILS;
 SELECT * FROM FINE_DETAILS;
@@ -52,12 +54,12 @@ SELECT * FROM FINE_DETAILS;
 
 CREATE TABLE BOOK_ISSUE_DETAILS(
 BOOK_ISSUE_NO INT,
-USER_ID VARCHAR(10) NOT NULL,
+USER_ID INT NOT NULL,
 BOOK_CODE VARCHAR(10) NOT NULL,
 DATE_ISSUE DATE NOT NULL,
 DATE_RETURN DATE NOT NULL,
 DATE_RETURNED DATE NULL,
-FINE_RANGE VARCHAR(3)
+FINE_RANGE int
 );
 
 
@@ -69,20 +71,31 @@ DESC BOOK_ISSUE_DETAILS;
 drop table book_issue_details;
 
 select * from book_details;
-
+select * from fine_Details;
 select * from user_details;
-alter table user_details modify user_role default 'user';
+select * from book_issue_details;
+
+select round(months_between(date_returned,date_return)) as fine_range from book_issue_details;
+
+
+
+update user_details set mobile_no=9089089087,email_id ='balu@gmail.com' where user_id = 1019;
+
+alter table book_issue_details modify fine_range default 0;
+
+
+
 commit;
 alter table fine_details modify fine_range varchar(20);
 alter table book_issue_details modify fine_range varchar(20);
 
-insert into book_details values ('5001','Three mistakes of my life','Story','ChetanBhagat','Geethanjali','270','9','09-08-2018','003');
-insert into book_details values ('5002','You Can Win','Philosophy','Shivkhera','Ramanathan',350,'3','15-09-2017','003');
+insert into book_details (book_code,book_title,category,author,price,rack_num,date_arrival,supplier_id) values ('5006','Timon of Athens','Novel','Shakespeare','570','2','09-08-2018','003');
+insert into book_details values ('5002','You Can Win','Philosophy','Shivkhera',350,'3','15-09-2017','003');
 
 alter table book_details drop column publication;
 alter table book_details add availability varchar2(20) default 'available' ;
 alter table book_details DROP column mobile_no;
-alter table user_details drop column date_expire;
+alter table user_details drop column date_register;
 alter table user_details add mobile_no int unique;
 alter table user_details add email_id varchar2(30) unique;
 create sequence seq start with 1010 increment by 1 minvalue 1001 maxvalue 1200;

@@ -14,11 +14,19 @@ public class LibraryApp {
 		String choice=sc.nextLine();
 		UsersDao user = null;
 		switch(choice) {
+
+		
+		/*Register*/
+		
 		
 		case "register":
 		case "1":
 			user = new UsersDao();
 			System.out.println("Enter your user_name,city,date_register,password,mobile_no,email_id");
+			
+			/*User name*/
+			
+			
 			boolean flag =false;
 			String user_name=null;
 			do {
@@ -30,6 +38,7 @@ public class LibraryApp {
 				else
 					System.out.println("Please enter Valid user name");
 				
+/*City*/				
 			}while(flag==false);
 			String city=null;
 			flag=false;
@@ -41,7 +50,8 @@ public class LibraryApp {
 				  }
 				else
 					System.out.println("Please enter Valid city");
-				
+
+/*Password*/
 			}while(flag==false);
 			String password=null;
 			flag=false;
@@ -53,7 +63,8 @@ public class LibraryApp {
 				  }
 				else
 					System.out.println("Please enter Valid password");
-				
+
+/*Phone number*/				
 			}while(flag==false);
 			Long mobile_no=null;
 			flag=false;
@@ -69,6 +80,8 @@ public class LibraryApp {
 				
 			}while(flag==false);
 			mobile_no =Long.parseLong(phno);
+			
+/*Email Id*/			
 			String email_id=null;
 			flag=false;
 			do {
@@ -90,6 +103,8 @@ public class LibraryApp {
 				System.out.println("Not registered");
 			    break;
 			}
+			
+/*Login*/			
 			
 		case "login":
 		case "2":

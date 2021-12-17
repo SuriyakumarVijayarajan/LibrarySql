@@ -12,17 +12,17 @@ public class BookIssueDao {
 	
 	public void insert(BookIssue p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into book_issue_details (book_issue_id, user_id, book_code,date_issue,date_return,date_returned,fine_range) values (?,?,?,?,?,?,?)";
+		String query="insert into book_issue_details (book_issue_no, user_id, book_code,date_issue,date_return,date_returned,fine_range) values (?,?,?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
 		pstmt.setInt(1,p1.getBook_issue_id());
-		pstmt.setString(2, p1.getUser_id());
+		pstmt.setInt(2, p1.getUser_id());
 		pstmt.setString(3, p1.getBook_code());
 		pstmt.setString(4, p1.getDate_issue());
 		pstmt.setString(5, p1.getDate_return());
 		pstmt.setString(6, p1.getDate_returned());
-		pstmt.setString(7, p1.getFine_range());
+		pstmt.setInt(7, p1.getFine_range());
 		
 		int i = pstmt.executeUpdate();
 		
