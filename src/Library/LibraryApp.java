@@ -2,9 +2,8 @@ package Library;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Book_Details.*;
-import  User_Details.*;
-
+import LibraryDAOs.*;
+import LibraryPojo.*;
 public class LibraryApp {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
