@@ -146,6 +146,43 @@ public class BooksDao {
 		
 	}
 	
+	public ResultSet categoryFetch(String category) {
+		String query="select book_title from book_details where category in ?";
+		Connection con;
+		PreparedStatement pstmt=null;
+		try {
+			con = ConnectionUtil.getDBConnect();
+			pstmt = con.prepareStatement(query);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		try {
+			pstmt.setString(1, category);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ResultSet rs=null;
+		try {
+			rs = pstmt.executeQuery();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rs;
+		
+		
+	}
+	
 public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		
 		String query="delete book_details where book_code=?";
@@ -195,6 +232,199 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		
 	}
 
+	public String bookBorrow(String book_title) {
+		
+		// TODO Auto-generated method stub
+		String query="select availability from book_details where book_title in ?";
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		try {
+			con = ConnectionUtil.getDBConnect();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+		    pstmt=con.prepareStatement(query);
+		    pstmt.setString(1, book_title);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs=null;
+		
+		try {
+			rs=pstmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			while(rs.next()) {
+				if(rs.getString(1).equals("available")) {
+					System.out.println(book_title+"is available");
+					return "available";
+					
+				}
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "unavailable";
+		
+		
+	}
+
+	public int getRack(String book_title) {
+		// TODO Auto-generated method stub
+		String query="select rack_num from book_details where book_title in ?";
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		try {
+			con = ConnectionUtil.getDBConnect();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+		    pstmt=con.prepareStatement(query);
+		    pstmt.setString(1, book_title);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs=null;
+		
+		try {
+			rs=pstmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			while(rs.next()) {
+				return rs.getInt(1);
+				}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public void bookAvail(String book_title, String user_name) {
+		// TODO Auto-generated method stub
+		String query="update book_details set availability='unavailable',user_name=? where book_title in ?";
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		try {
+			con = ConnectionUtil.getDBConnect();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+		    pstmt=con.prepareStatement(query);
+		    pstmt.setString(1, user_name);
+		    pstmt.setString(2, book_title);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int rs=0;
+		
+		try {
+			rs=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		
+	}
+	
+	public void updateBookIssue(String book_title,int book_issue_no) {
+		// TODO Auto-generated method stub
+		String query="update book_details set book_issue_no=? where book_title=?";
+		Connection con = null;
+		try {
+			con = ConnectionUtil.getDBConnect();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PreparedStatement pstmt = null;
+		 int i = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,book_issue_no);
+			pstmt.setString(2,book_title);
+			i = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        
+		
+         
+		
+		System.out.println(i+"rows updated successfully");
+		
+	}
+
+	public void returnBook(String book_title) {
+		// TODO Auto-generated method stub
+		String query="update book_details set availability='available',user_name=null where book_title in ? ";
+		Connection con=null;
+		try {
+			con=ConnectionUtil.getDBConnect();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(query);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			pstmt.setString(1,book_title);
+			int rs=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
+	
 
 }
 

@@ -3,7 +3,7 @@ package LibraryPojo;
 public class BookIssue {
 	
 	private int book_issue_id;
-	private int user_id;
+	private String user_name;
 	private String book_code;
 	private String date_issue;
 	private String date_return;
@@ -15,11 +15,12 @@ public class BookIssue {
 	public void setBook_issue_id(int book_issue_id) {
 		this.book_issue_id = book_issue_id;
 	}
-	public int getUser_id() {
-		return user_id;
+	
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 	public String getBook_code() {
 		return book_code;
@@ -51,11 +52,11 @@ public class BookIssue {
 	public void setFine_range(int fine_range) {
 		this.fine_range = fine_range;
 	}
-	public BookIssue(int book_issue_id, int user_id, String book_code, String date_issue, String date_return,
+	public BookIssue(int book_issue_id, String user_name, String book_code, String date_issue, String date_return,
 			String date_returned,int fine_range) {
 		super();
 		this.book_issue_id = book_issue_id;
-		this.user_id = user_id;
+		this.user_name = user_name;
 		this.book_code = book_code;
 		this.date_issue = date_issue;
 		this.date_return = date_return;
@@ -64,7 +65,7 @@ public class BookIssue {
 	}
 	@Override
 	public String toString() {
-		return "BookIssue [book_issue_id=" + book_issue_id + ", user_id=" + user_id + ", book_code=" + book_code
+		return "BookIssue [book_issue_id=" + book_issue_id + ", user_name=" + user_name+ ", book_code=" + book_code
 				+ ", date_issue=" + date_issue + ", date_return=" + date_return + ", date_returned=" + date_returned
 				+ ", fine_range=" + fine_range + "]";
 	}

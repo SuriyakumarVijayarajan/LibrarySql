@@ -97,12 +97,11 @@ public class UsersTestMain {
 			
 		case 2:
 			int user_id,fine_amount = 0;
-			System.out.println("Enter User Id");
-			user_id=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter User name");
+			user_name=sc.nextLine();
 			System.out.println("Enter Fine amount");
-			Users p2=new Users(user_id,fine_amount);
-				
-			uDao.update(p2);
+			fine_amount=Integer.parseInt(sc.nextLine());
+			uDao.update(fine_amount,user_name);
 		    break;
 			
 		case 3: 
