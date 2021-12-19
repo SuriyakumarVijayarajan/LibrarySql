@@ -13,7 +13,7 @@ public class BookIssueDao {
 	
 	public void insert(BookIssue p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into book_issue_details (book_issue_no, user_id, book_code,date_issue,date_return,date_returned,fine_range) values (?,?,?,?,?,?,?)";
+		String query="insert into book_issue_details (book_issue_no,user_id,book_code,date_issue,date_return,date_returned) values (?,?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -23,8 +23,6 @@ public class BookIssueDao {
 		pstmt.setString(4, p1.getDate_issue());
 		pstmt.setString(5, p1.getDate_return());
 		pstmt.setString(6, p1.getDate_returned());
-		pstmt.setInt(7, p1.getFine_range());
-		
 		int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows inserted successfully");
@@ -33,7 +31,7 @@ public class BookIssueDao {
 	
 	public void update(BookIssue p1) throws SQLException, ClassNotFoundException {
 		
-		String query="update products set fine_range=? where user_id=?";
+		String query="update book_issue_details set fine_range_in_month=? where user_id=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -47,7 +45,7 @@ public class BookIssueDao {
 	
 public void delete(BookIssue p1) throws SQLException, ClassNotFoundException {
 		
-		String query="delete products where book_issue_no=?";
+		String query="delete book_issue_details where book_issue_no=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		

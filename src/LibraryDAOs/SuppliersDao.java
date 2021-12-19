@@ -26,15 +26,16 @@ public class SuppliersDao {
 	
 	public void update(Suppliers p2) throws SQLException, ClassNotFoundException {
 		
-		String query="update supplier_details set category_id=? where product_id=100";
+		String query="update supplier_details set contact=? where supplier_id=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
-		pstmt.setString(1,p2.getSupplier_id());
+		pstmt.setString(2,p2.getSupplier_id());
+		pstmt.setLong(1,p2.getContact());
 		
          int i = pstmt.executeUpdate();
 		
-		System.out.println(i+"rows inserted successfully");
+		System.out.println(i+"rows updated successfully");
 	}
 	
 public void delete(Suppliers p2) throws SQLException, ClassNotFoundException {

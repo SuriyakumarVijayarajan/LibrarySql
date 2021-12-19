@@ -52,7 +52,7 @@ public class BookIssue {
 		this.fine_range = fine_range;
 	}
 	public BookIssue(int book_issue_id, int user_id, String book_code, String date_issue, String date_return,
-			String date_returned, int fine_range) {
+			String date_returned,int fine_range) {
 		super();
 		this.book_issue_id = book_issue_id;
 		this.user_id = user_id;
@@ -60,7 +60,7 @@ public class BookIssue {
 		this.date_issue = date_issue;
 		this.date_return = date_return;
 		this.date_returned = date_returned;
-		this.fine_range = fine_range;
+		this.fine_range=fine_range;
 	}
 	@Override
 	public String toString() {

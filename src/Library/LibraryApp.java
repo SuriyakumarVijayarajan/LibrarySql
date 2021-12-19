@@ -1,5 +1,7 @@
 package Library;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import LibraryDAOs.*;
@@ -12,6 +14,7 @@ public class LibraryApp {
 		System.out.println("Enter your wish 1.register 2.login");
 		String choice=sc.nextLine();
 		UsersDao user = null;
+		BooksDao book=new BooksDao();
 		switch(choice) {
 
 		
@@ -130,19 +133,20 @@ public class LibraryApp {
 				  }
 				else
 					System.out.println("Please enter Valid password");
-				
+				flag=true;
 			}while(flag==false);
 			
 			user = new UsersDao();
 			String val = user.fetch(user_name, password);
 			System.out.println(val);
 			if(val.equals("user")) {
-				System.out.println("Welcome user");
+				System.out.println("Welcome "+user_name);
 				libUser();
 				
 			}else if(val.equals("admin")){
-				System.out.println("welcome admin");
 				
+				System.out.println("welcome admin "+user_name);
+				LibraryAdmin();
 			}
 			break;
 			
@@ -156,11 +160,144 @@ public class LibraryApp {
 
 	}
 	
-	public static void libUser() throws ClassNotFoundException, SQLException {
-		BooksDao user=new BooksDao();
-		System.out.println("1.Borrow Book, 2.Return Book ");
+	private static void LibraryAdmin() {
+		// TODO Auto-generated method stub
+		BooksDao book=new BooksDao();
+		SuppliersDao supply=new SuppliersDao();
+		BookIssueDao bookIssue=new BookIssueDao();
+		FinesDao fine=new FinesDao();
+		System.out.println("1.Show Books 2.Add Books 3.Add supplier Details 4.Add Book Issue Details 5.Add Fine Details");
 		Scanner sc=new Scanner(System.in);
+		int choice=Integer.parseInt(sc.nextLine());
+		switch(choice) {
+		case 1:
+//			ResultSet rs=book.showBooks();
+			List Products=book.showBooks();
+			for(int i=0;i<Products.size();i++)
+			{
+				System.out.println(Products.get(i));
+				
+			}
+//			try {
+//				while(rs.next()) {
+//					System.out.println("Book Name");
+//					System.out.println(rs.getString(1));
+//					System.out.println("Author");
+//					System.out.println(rs.getString(2));
+//					System.out.println("Category");
+//					System.out.println(rs.getString(3));
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+		case 2:
+			System.out.println("Enter Book_code");
+			String book_code=sc.nextLine();
+			System.out.println("Enter Book Title");
+			String book_title=sc.nextLine();
+			System.out.println("Enter Category");
+			String category=sc.nextLine();
+			System.out.println("Enter Author");
+			String author=sc.nextLine();
+			System.out.println("Enter Price");
+			int price=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter Rack Number");
+			String rack_number=sc.nextLine();
+			System.out.println("Enter Date Arrival");
+			String date_arrival=sc.nextLine();
+			System.out.println("Enter Supplier Id");
+			String supplier_id=sc.nextLine();
+			Books p1=new Books(book_code,book_title,category,author,price,rack_number,date_arrival,supplier_id);
+			try {
+				book.insert(p1);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 3:
+			System.out.println("Enter Supplier Id");
+			supplier_id=sc.nextLine();
+			System.out.println("Enter Supplier Name");
+			String supplier_name=sc.nextLine();
+			System.out.println("Enter Address");
+			String address=sc.nextLine();
+			System.out.println("Enter Contact");
+			long contact=Long.parseLong(sc.nextLine());
+			Suppliers s1=new Suppliers(supplier_id,supplier_name,address,contact);
+			try {
+				supply.insert(s1);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		case 4:
+			System.out.println("Enter Book Issue Details");
+			String pDetail=sc.nextLine();
+			System.out.println("Enter Book Issue no");
+			int book_issue_no=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter User ID");
+			int user_id=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter Book Code");
+			book_code=sc.nextLine();
+			System.out.println("Enter Date Issue");
+			String date_issue=sc.nextLine();
+			System.out.println("Enter Date Return");
+			String date_return=sc.nextLine();
+			System.out.println("Enter Date Returned");
+			String date_returned=sc.nextLine();
+			System.out.println("Enter Fine Range");
+			int fine_range=Integer.parseInt(sc.nextLine());
+			BookIssue issue=new BookIssue(book_issue_no,user_id,book_code,date_issue,date_return,date_returned,fine_range);
+			try {
+				bookIssue.insert(issue);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 5:
+			System.out.println("Enter Fine_range");
+			fine_range=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter Fine_amount");
+			int fine_amount=Integer.parseInt(sc.nextLine());
+			System.out.println(fine_range);
+			Fines fines=new Fines(fine_range,fine_amount);
+			try {
+				fine.insert(fines);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
 		
+		
+		
+		
+	}
+
+	public static void libUser() throws ClassNotFoundException, SQLException {
+		
+		System.out.println("1.Borrow Book 2.Return Book 3.View Book 4");
+		Scanner sc=new Scanner(System.in);
+		BooksDao book=new BooksDao();
 		int choice = Integer.parseInt(sc.nextLine());
 		switch(choice) {
 		case 1:
@@ -170,7 +307,11 @@ public class LibraryApp {
 			case 1:
 				System.out.println("Enter Author Name");
 				String author=sc.nextLine();
-				user.authorFetch(author);
+				ResultSet rs=book.authorFetch(author);
+				while(rs.next()) {
+					System.out.println(rs.getString(1));
+					
+				}
 			}
 			
 		}

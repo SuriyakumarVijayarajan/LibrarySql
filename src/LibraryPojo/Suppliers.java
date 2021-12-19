@@ -45,6 +45,11 @@ public class Suppliers {
 		// TODO Auto-generated constructor stub
 		this.supplier_id=supplier_id;
 	}
+	public Suppliers(String supplier_id, long contact) {
+		// TODO Auto-generated constructor stub
+		this.supplier_id = supplier_id;
+		this.contact = contact;
+	}
 	
 	
 

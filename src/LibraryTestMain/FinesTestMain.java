@@ -29,17 +29,17 @@ public class FinesTestMain {
 			fDao.insert(p1);
 			break;
 			
-//		case 2:
-//						
-//			Fines p2=new Fines(Integer.parseInt(pDetail));
-//				
-//			fDao.update(p2);
-//		    break;
-//			
-//		case 3:            
-//				Fines p3=new Fines(Integer.parseInt(pDetail));
-//				fDao.delete(p3);
-//				break;
+		case 2:
+						
+			Fines p2=new Fines(fine_range,fine_amount);
+				
+			fDao.update(p2);
+		    break;
+			
+		case 3:            
+				Fines p3=new Fines(fine_range);
+				fDao.delete(p3);
+				break;
 				
 		}				
 				

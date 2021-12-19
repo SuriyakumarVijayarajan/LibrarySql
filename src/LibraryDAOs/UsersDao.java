@@ -50,31 +50,32 @@ public String fetch(String uname,String pass) throws ClassNotFoundException, SQL
 	
 }
 
-//public void update(Users p2) throws SQLException, ClassNotFoundException {
-//	
-//	String query="update products set category_id=? where product_id=100";
-//	Connection con=ConnectionUtil.getDBConnect();
-//	PreparedStatement pstmt = con.prepareStatement(query);
-//	
-//	pstmt.setString(1,p2.getPassword());
-//	
-//     int i = pstmt.executeUpdate();
-//	
-//	System.out.println(i+"rows inserted successfully");
-//}
-//
-//public void delete(Users p2) throws SQLException, ClassNotFoundException {
-//	
-//	String query="delete products where category_id=?";
-//	Connection con=ConnectionUtil.getDBConnect();
-//	PreparedStatement pstmt = con.prepareStatement(query);
-//	
-//	pstmt.setString(1,p2.getPassword());
-//	
-//     int i = pstmt.executeUpdate();
-//	
-//	System.out.println(i+"rows deleted successfully");
-//}
+public void update(Users p2) throws SQLException, ClassNotFoundException {
+	
+	String query="update products set fine_amount=? where user_id=?";
+	Connection con=ConnectionUtil.getDBConnect();
+	PreparedStatement pstmt = con.prepareStatement(query);
+	
+	pstmt.setInt(1,p2.getFine_amount());
+	pstmt.setInt(2, p2.getUser_id());
+	
+     int i = pstmt.executeUpdate();
+	
+	System.out.println(i+"rows inserted successfully");
+}
+
+public void delete(Users p2) throws SQLException, ClassNotFoundException {
+	
+	String query="delete products where category_id=?";
+	Connection con=ConnectionUtil.getDBConnect();
+	PreparedStatement pstmt = con.prepareStatement(query);
+	
+	pstmt.setString(1,p2.getPassword());
+	
+     int i = pstmt.executeUpdate();
+	
+	System.out.println(i+"rows deleted successfully");
+}
 
 }
 

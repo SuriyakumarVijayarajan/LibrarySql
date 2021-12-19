@@ -4,11 +4,28 @@ public class Users {
 	
 	private String user_name;
 	private String city;
-	private String date_register;
 	private String password;
 	private long mobile_no;
 	private String email_id;
+	private int user_id;
+	private int fine_amount;
 	
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public int getFine_amount() {
+		return fine_amount;
+	}
+
+	public void setFine_amount(int fine_amount) {
+		this.fine_amount = fine_amount;
+	}
+
 	public Users() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -63,16 +80,24 @@ public class Users {
 		this.email_id = email_id;
 	}
 
-	public Users(String password) {
+	public Users(int user_id, int fine_amount) {
 		// TODO Auto-generated constructor stub
-		this.password=password;
+		this.user_id=user_id;
+		this.fine_amount=fine_amount;
+	}
+
+	public Users(int user_id) {
+		// TODO Auto-generated constructor stub
+		this.user_id=user_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Users [user_name=" + user_name + ", city=" + city + ", date_register=" + date_register + ", password="
-				+ password + ", mobile_no=" + mobile_no + ", email_id=" + email_id + "]";
+		return "Users [user_name=" + user_name + ", city=" + city + ", password=" + password + ", mobile_no="
+				+ mobile_no + ", email_id=" + email_id + ", user_id=" + user_id + ", fine_amount=" + fine_amount + "]";
 	}
+
+	
 	
 	
 	

@@ -68,12 +68,8 @@ DESC SUPPLIER_DETAILS;
 DESC FINE_DETAILS;
 DESC BOOK_DETAILS;
 DESC BOOK_ISSUE_DETAILS;
-drop table book_issue_details;
 
-select * from book_details;
-select * from fine_Details;
-select * from user_details;
-select * from book_issue_details;
+
 
 select round(months_between(date_returned,date_return)) as fine_range from book_issue_details;
 
@@ -82,12 +78,15 @@ select round(months_between(date_returned,date_return)) as fine_range from book_
 update user_details set mobile_no=9089089087,email_id ='balu@gmail.com' where user_id = 1019;
 
 alter table book_issue_details modify fine_range default 0;
+alter table book_issue_details modify fine_range as (round(months_between(date_returned,date_return)));
 
 
 
 commit;
 alter table fine_details modify fine_range varchar(20);
 alter table book_issue_details modify fine_range varchar(20);
+
+alter table fine_details rename column fine_range to fine_range_in_month;
 
 insert into book_details (book_code,book_title,category,author,price,rack_num,date_arrival,supplier_id) values ('5006','Timon of Athens','Novel','Shakespeare','570','2','09-08-2018','003');
 insert into book_details values ('5002','You Can Win','Philosophy','Shivkhera',350,'3','15-09-2017','003');
@@ -103,3 +102,12 @@ alter table user_details add user_id int default seq.nextval;
 delete from user_details where user_id in 1022;
 commit;
 commit;
+
+update user_details set password = 'Sithan@123' where user_name='sithan';
+Update BOOK_ISSUE_DETAILS set FINE_RANGE_IN_MONTH = (Round(Months_between(DATE_RETURNED,DATE_RETURN)));
+
+select * from user_details;
+select * from book_details;
+select * from book_issue_details;
+select * from fine_details;
+select * from supplier_details;

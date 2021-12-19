@@ -23,24 +23,25 @@ public class FinesDao {
 	
 	public void update(Fines p2) throws SQLException, ClassNotFoundException {
 		
-		String query="update fine_details set fine_range=? where fine_amount=100";
+		String query="update fine_details set fine_amount=? where fine_range_in_month=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
 		pstmt.setInt(1,p2.getFine_amount());
+		pstmt.setInt(2,p2.getFine_range() );
 		
          int i = pstmt.executeUpdate();
 		
-		System.out.println(i+"rows inserted successfully");
+		System.out.println(i+"rows updated successfully");
 	}
 	
 public void delete(Fines p2) throws SQLException, ClassNotFoundException {
 		
-		String query="delete fine_details where category_id=?";
+		String query="delete fine_details where fine_range_in_month=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
-		pstmt.setInt(1,p2.getFine_amount());
+		pstmt.setInt(1,p2.getFine_range());
 		
          int i = pstmt.executeUpdate();
 		

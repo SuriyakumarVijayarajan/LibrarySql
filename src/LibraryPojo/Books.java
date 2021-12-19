@@ -10,6 +10,15 @@ public class Books {
 	private String rack_num;
 	private String date_arrival;
 	private String supplier_id;
+	private String availability;
+	
+	
+	public String getAvailability() {
+		return availability;
+	}
+	public void setAvailability(String availability) {
+		this.availability = availability;
+	}
 	public Books(String book_code, String book_title, String category, String author, int price,
 			String rack_num, String date_arrival, String supplier_id) {
 		super();
@@ -26,7 +35,13 @@ public class Books {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Books(String supplier_id) {
+	public Books(String book_code) {
+		// TODO Auto-generated constructor stub
+		this.book_code=book_code;
+	}
+	public Books(String book_code, String availability) {
+		this.book_code=book_code;
+		this.availability=availability;
 		// TODO Auto-generated constructor stub
 	}
 	public String getBook_code() {
@@ -76,6 +91,16 @@ public class Books {
 	}
 	public void setSupplier_id(String supplier_id) {
 		this.supplier_id = supplier_id;
+	}
+	
+	public Books( String book_title, String category,String author) {
+		this.book_title = book_title;
+		this.category = category;
+		this.author = author;
+	}
+	@Override
+	public String toString() {
+		return "\nBook_title=" + book_title + "\nCategory=" + category + "\nAuthor=" + author;
 	}
 	
 	

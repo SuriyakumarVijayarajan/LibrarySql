@@ -19,8 +19,8 @@ public class UsersTestMain {
 		System.out.println("Enter your user_name,city,date_register,password,mobile_no,email_id");
 		
 		/*User name*/
-		
-		
+		switch(choice) {
+		case 1:
 		boolean flag =false;
 		String user_name=null;
 		do {
@@ -95,17 +95,21 @@ public class UsersTestMain {
 		}
 			
 			
-//		case 2:
-//						
-//			Users p2=new Users((pDetail));
-//				
-//			uDao.update(p2);
-//		    break;
-//			
-//		case 3:            
-//				Users p3=new Users((pDetail));
-//				uDao.delete(p3);
-//				break;
+		case 2:
+			int user_id,fine_amount = 0;
+			System.out.println("Enter User Id");
+			user_id=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter Fine amount");
+			Users p2=new Users(user_id,fine_amount);
+				
+			uDao.update(p2);
+		    break;
+			
+		case 3: 
+			    user_id=Integer.parseInt(sc.nextLine());
+				Users p3=new Users((user_id));
+				uDao.delete(p3);
+				break;
 				
 		}				
 				
@@ -114,4 +118,4 @@ public class UsersTestMain {
 
 	}
 
-
+}

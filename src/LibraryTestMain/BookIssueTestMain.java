@@ -17,32 +17,44 @@ public class BookIssueTestMain {
 			BookIssueDao biDao = new BookIssueDao();
 			System.out.println("Enter your choice ");
 			int choice=Integer.parseInt(sc.nextLine());
-			System.out.println("Enter User Details");
+			System.out.println("Enter Book Issue Details");
 			String pDetail=sc.nextLine();
+			System.out.println("Enter Book Issue no");
+			int book_issue_no=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter User ID");
+			int user_id=Integer.parseInt(sc.nextLine());
+			System.out.println("Enter Book Code");
+			String book_code=sc.nextLine();
+			System.out.println("Enter Date Issue");
+			String date_issue=sc.nextLine();
+			System.out.println("Enter Date Return");
+			String date_return=sc.nextLine();
+			System.out.println("Enter Date Returned");
+			String date_returned=sc.nextLine();
+			System.out.println("Enter Fine Range");
+			int fine_range=Integer.parseInt(sc.nextLine());
+			BookIssue p1=new BookIssue(book_issue_no,user_id,book_code,date_issue,date_return,date_returned,fine_range);
 			
 			switch(choice){
 				
 			case 1:
-				BookIssue p1=new BookIssue(Integer.parseInt(pDetail.split(",")[0]),Integer.parseInt(pDetail.split(",")[1]),
-				pDetail.split(",")[2],pDetail.split(",")[3],pDetail.split(",")[4],
-				pDetail.split(",")[5],Integer.parseInt(pDetail.split(",")[6]));
+				
 				biDao.insert(p1);
 				break;
 				
-//			case 2:
-//							
-//				Users p2=new Users((pDetail));
-//					
-//				uDao.update(p2);
-//			    break;
-//				
-//			case 3:            
-//					Users p3=new Users((pDetail));
-//					uDao.delete(p3);
-//					break;
-//					
-//			}				
-//					
+			case 2:
+							
+					
+				biDao.update(p1);
+			    break;
+				
+			case 3:  
+				
+					biDao.delete(p1);
+					break;
+					
+			}				
+					
 					
 			
 
@@ -50,5 +62,4 @@ public class BookIssueTestMain {
 
 	
 
-		}
 }
