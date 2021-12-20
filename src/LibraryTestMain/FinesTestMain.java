@@ -1,11 +1,12 @@
 package LibraryTestMain;
 
 import java.sql.Connection;
-import LibraryDAOs.*;
-import LibraryPojo.*;
-import Connection.*;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.library.connection.*;
+import com.library.dao.*;
+import com.library.pojo.*;
 
 public class FinesTestMain {
 
