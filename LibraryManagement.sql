@@ -62,12 +62,20 @@ DATE_RETURNED DATE NULL,
 FINE_RANGE int
 );
 
+CREATE TABLE ORDER_BOOK(
+USER_NAME VARCHAR2(20),
+BOOK_NAME VARCHAR2(30),
+AUTHOR VARCHAR2(30),
+SUPPLIER_ID VARCHAR(3));
+
+
 
 DESC USER_DETAILS;
 DESC SUPPLIER_DETAILS;
 DESC FINE_DETAILS;
 DESC BOOK_DETAILS;
 DESC BOOK_ISSUE_DETAILS;
+DESC ORDER_BOOK;
 
 
 
@@ -100,14 +108,17 @@ alter table user_details add mobile_no int unique;
 alter table user_details add email_id varchar2(30) unique;
 alter table  user_details add constraint un unique(user_name);
 create sequence seq start with 1010 increment by 1 minvalue 1001 maxvalue 1200;
-alter table user_details add user_id int default seq.nextval;
+alter table supplier_details drop column supplier_id;
+create sequence seq1 start with 101 increment by 1 minvalue 100 maxvalue 999;
+alter table supplier_details add supplier_id int default seq1.nextval;
 delete from user_details where user_id in 1022;
 commit;
 commit;
 
+drop table order_book;
+alter table order_book rename column supplier_id to supplier_name;
 
-alter table book_issue_details rename column book_code to book_title;
-alter table book_issue_details modify book_title varchar2(50);
+alter table order_book modify supplier_name varchar2(20);
 commit;
 update user_details set password = 'Sithan@123' where user_name='sithan';
 update book_details set availability='available',user_name=null where book_title in 'Three mistakes of my life'; 
@@ -115,12 +126,16 @@ update book_details set availability='available',user_name=null where book_title
 Update BOOK_ISSUE_DETAILS set FINE_RANGE_IN_MONTH = (Round(Months_between(DATE_RETURNED,DATE_RETURN)));
 delete book_issue_details where fine_range_in_month in 3;
 update user_details set fine_amount=120 where user_name='mani';
+delete user_details where user_name in 'mathi';
 select * from user_details;
 select * from book_details;
 select * from book_issue_details;
 select * from fine_details;
 select * from supplier_details;
-
+select * from order_book;
+alter table book_details drop column supplier_id;
 commit;
+drop table supplier_details;
+
 update book_details set availability='available';
-update book_details set user_name=null where availability='available';
+update order_book set supplier_name='deepan' where user_name='hari';

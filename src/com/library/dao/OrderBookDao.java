@@ -2,6 +2,7 @@ package com.library.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.library.connection.ConnectionUtil;
@@ -12,7 +13,7 @@ public class OrderBookDao {
 	
 	public void insert(OrderBook p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into order_book (user_name,book_name,author,supplier_id) values (?,?,?,?)";
+		String query="insert into order_book (user_name,book_name,author,supplier_name) values (?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -28,13 +29,13 @@ public class OrderBookDao {
 		
 	}
 	
-	public void update(String supplier_id,String book_name) throws SQLException, ClassNotFoundException {
+	public void update(String supplier_name,String book_name) throws SQLException, ClassNotFoundException {
 		
-		String query="update order_book set supplier_id=? where book_name=?";
+		String query="update order_book set supplier_name=? where book_name=?";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
-		pstmt.setString(1,supplier_id);
+		pstmt.setString(1,supplier_name);
 		pstmt.setString(2,book_name);
 		
          int i = pstmt.executeUpdate();
@@ -53,6 +54,17 @@ public void delete(String book_name) throws SQLException, ClassNotFoundException
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows deleted successfully");
-	}	
+	}
+
+public ResultSet view(String user_name) throws SQLException, ClassNotFoundException {
+	// TODO Auto-generated method stub
+	String query="select * from order_book where supplier_name in ?";
+	Connection con=ConnectionUtil.getDBConnect();
+	PreparedStatement pstmt=con.prepareStatement(query);
+	pstmt.setString(1, user_name);
+	ResultSet rs=pstmt.executeQuery();
+	return rs;
+	
+}	
 
 }

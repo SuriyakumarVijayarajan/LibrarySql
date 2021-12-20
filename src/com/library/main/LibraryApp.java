@@ -149,6 +149,9 @@ public class LibraryApp {
 				
 				System.out.println("welcome admin "+user_name);
 				LibraryAdmin();
+			}else if(val.equals("supplier")) {
+				System.out.println("Welcome supplier "+user_name);
+				libSupplier(user_name);
 			}
 			break;
 			
@@ -162,6 +165,25 @@ public class LibraryApp {
 
 	}
 	
+	private static void libSupplier(String user_name) throws SQLException {
+		// TODO Auto-generated method stub
+		OrderBookDao obDao=new OrderBookDao();
+		ResultSet rs=null;
+		try {
+			 rs=obDao.view(user_name);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while(rs.next()) {
+			System.out.print(rs.getString(2));
+			System.out.println("\t\t"+rs.getString(3));
+		}
+	}
+
 	private static void LibraryAdmin() {
 		// TODO Auto-generated method stub
 		BooksDao book=new BooksDao();
@@ -209,9 +231,8 @@ public class LibraryApp {
 			String rack_number=sc.nextLine();
 			System.out.println("Enter Date Arrival");
 			String date_arrival=sc.nextLine();
-			System.out.println("Enter Supplier Id");
-			String supplier_id=sc.nextLine();
-			Books p1=new Books(book_code,book_title,category,author,price,rack_number,date_arrival,supplier_id);
+			
+			Books p1=new Books(book_code,book_title,category,author,price,rack_number,date_arrival);
 			try {
 				book.insert(p1);
 			} catch (ClassNotFoundException e) {
@@ -224,14 +245,14 @@ public class LibraryApp {
 			break;
 		case 3:
 			System.out.println("Enter Supplier Id");
-			supplier_id=sc.nextLine();
+			String supplier_id=sc.nextLine();
 			System.out.println("Enter Supplier Name");
 			String supplier_name=sc.nextLine();
 			System.out.println("Enter Address");
 			String address=sc.nextLine();
 			System.out.println("Enter Contact");
 			long contact=Long.parseLong(sc.nextLine());
-			Suppliers s1=new Suppliers(supplier_id,supplier_name,address,contact);
+			Suppliers s1=new Suppliers(supplier_name,address,contact);
 			try {
 				supply.insert(s1);
 			} catch (ClassNotFoundException e) {
@@ -292,7 +313,112 @@ public class LibraryApp {
 			}
 			break;
 			
-		case 6:
+		case 6: 
+			UsersDao user = new UsersDao();
+			boolean flag =false;
+			user_name=null;
+			do {
+				System.out.println("Enter User_Name");
+				user_name=sc.nextLine();
+				if(user_name.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid user name");
+				
+/*City*/				
+			}while(flag==false);
+			String city=null;
+			flag=false;
+			do {
+				System.out.println("Enter city");
+				city=sc.nextLine();
+				if(city.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid city");
+
+/*Password*/
+			}while(flag==false);
+			String password=null;
+			flag=false;
+			do {
+				System.out.println("Enter password");
+				password=sc.nextLine();
+				if(password.matches("(?=.*[0-9])(?=.*[@#$%*!^()_+])(?=.*[a-z])(?=.*[A-Z]).{8,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid password");
+
+/*Phone number*/				
+			}while(flag==false);
+			Long mobile_no=null;
+			flag=false;
+			String phno=null;
+			do {
+				System.out.println("Enter Phone Number");
+				phno = sc.nextLine();
+				if(phno.matches("[6-9][0-9]{9}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid Phone number");
+				
+			}while(flag==false);
+			mobile_no =Long.parseLong(phno);
+			
+/*Email Id*/			
+			String email_id=null;
+			flag=false;
+			do {
+				System.out.println("Enter email_id");
+				email_id=sc.nextLine();
+				if(email_id.matches("([a-zA-Z0-9]+[@][a-zA-Z]+[.][a-z]+{15,40})")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid email");
+				
+			}while(flag==false);
+/*user_role*/			
+			String user_role=null;
+			flag=false;
+			do {
+				System.out.println("Enter User role");
+				user_role=sc.nextLine();
+				if(user_role.matches("([a-z]*)")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid email");
+				
+			}while(flag==false);
+			
+			Users p2=new Users(user_name,city,user_role,password,mobile_no,email_id);
+			Suppliers p3=new Suppliers(user_name,city,mobile_no);
+			boolean a = false;
+			try {
+				a = user.adminInsert(p2);
+				if(user_role.equals("supplier")) {
+			    supply.insert(p3);
+			}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(a) {
+				System.out.println("Registration successful");
+			}
+			else {
+				System.out.println("Not registered");
+			    break;
+			}
+			
 			
 		}
 		
@@ -431,9 +557,9 @@ public class LibraryApp {
 			password=sc.nextLine();
 			adminCheck=user.fetch(uname,password);
 			if(adminCheck.equals("admin")) {
-				System.out.println("Enter Supplier Id");
-				supplier_id=sc.nextLine();
-				obDao.update(supplier_id, book_name);
+				System.out.println("Enter Supplier name");
+				String supplier_name=sc.nextLine();
+				obDao.update(supplier_name, book_name);
 				
 			}
 			

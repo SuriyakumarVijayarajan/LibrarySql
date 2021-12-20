@@ -9,7 +9,26 @@ public class Users {
 	private String email_id;
 	private int user_id;
 	private int fine_amount;
+	private String user_role;
 	
+	public Users(String user_name, String city, String user_role, String password, long mobile_no, String email_id) {
+		super();
+		this.user_name = user_name;
+		this.city = city;
+		this.password = password;
+		this.mobile_no = mobile_no;
+		this.email_id = email_id;
+		this.user_role = user_role;
+	}
+
+	public String getUser_role() {
+		return user_role;
+	}
+
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}

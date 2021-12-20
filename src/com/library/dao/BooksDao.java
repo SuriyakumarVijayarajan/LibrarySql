@@ -12,7 +12,7 @@ import com.library.pojo.*;
 public class BooksDao {
 	public void insert(Books p1) throws SQLException, ClassNotFoundException {
 		
-		String query="insert into book_details (book_code,book_title,category,author,price,rack_num,date_arrival,supplier_id) values (?,?,?,?,?,?,?,?)";
+		String query="insert into book_details (book_code,book_title,category,author,price,rack_num,date_arrival) values (?,?,?,?,?,?,?)";
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -23,7 +23,6 @@ public class BooksDao {
 		pstmt.setInt(5, p1.getPrice());
 		pstmt.setString(6, p1.getRack_num());
 		pstmt.setString(7, p1.getDate_arrival());
-		pstmt.setString(8, p1.getSupplier_id());
 		
 		int i = pstmt.executeUpdate();
 		

@@ -11,6 +11,7 @@ public class UsersDao {
 	public boolean insert(Users p1) throws SQLException, ClassNotFoundException {
 		
 		String query="insert into user_details (user_name,city,password,mobile_no,email_id) values (?,?,?,?,?)";
+		
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -20,6 +21,30 @@ public class UsersDao {
 		pstmt.setLong(4, p1.getMobile_no());
 		pstmt.setString(5, p1.getEmail_id());
 		
+		int i = pstmt.executeUpdate();
+		if(i>0)
+			return true;
+		
+		return false;
+		
+		//System.out.println(i+"rows inserted successfully");
+		
+	}
+public boolean adminInsert(Users p1) throws SQLException, ClassNotFoundException {
+		
+		String query="insert into user_details (user_name,city,user_role,password,mobile_no,email_id) values (?,?,?,?,?,?)";
+		
+		Connection con=ConnectionUtil.getDBConnect();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		System.out.println("hi");
+		
+		pstmt.setString(1,p1.getUser_name());
+		pstmt.setString(2, p1.getCity());
+		pstmt.setString(3, p1.getUser_role());
+		pstmt.setString(4,p1.getPassword());
+		pstmt.setLong(5, p1.getMobile_no());
+		pstmt.setString(6, p1.getEmail_id());
+		System.out.println(p1.getCity()+p1.getEmail_id()+p1.getMobile_no()+p1.getPassword()+p1.getUser_name()+p1.getUser_role());
 		int i = pstmt.executeUpdate();
 		if(i>0)
 			return true;

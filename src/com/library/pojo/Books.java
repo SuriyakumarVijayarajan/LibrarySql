@@ -9,7 +9,6 @@ public class Books {
 	private int price;
 	private String rack_num;
 	private String date_arrival;
-	private String supplier_id;
 	private String availability;
 	
 	
@@ -20,7 +19,7 @@ public class Books {
 		this.availability = availability;
 	}
 	public Books(String book_code, String book_title, String category, String author, int price,
-			String rack_num, String date_arrival, String supplier_id) {
+			String rack_num, String date_arrival) {
 		super();
 		this.book_code = book_code;
 		this.book_title = book_title;
@@ -29,7 +28,6 @@ public class Books {
 		this.price = price;
 		this.rack_num = rack_num;
 		this.date_arrival = date_arrival;
-		this.supplier_id = supplier_id;
 	}
 	public Books() {
 		super();
@@ -86,12 +84,7 @@ public class Books {
 	public void setDate_arrival(String date_arrival) {
 		this.date_arrival = date_arrival;
 	}
-	public String getSupplier_id() {
-		return supplier_id;
-	}
-	public void setSupplier_id(String supplier_id) {
-		this.supplier_id = supplier_id;
-	}
+	
 	
 	public Books( String book_title, String category,String author) {
 		this.book_title = book_title;
