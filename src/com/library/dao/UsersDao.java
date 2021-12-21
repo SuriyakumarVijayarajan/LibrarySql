@@ -56,18 +56,18 @@ public boolean adminInsert(Users p1) throws SQLException, ClassNotFoundException
 	}
 	
 	
-public String fetch(String uname,String pass) throws ClassNotFoundException, SQLException {
+public String fetch(Users u1) throws ClassNotFoundException, SQLException {
 	
 	String query="select user_name,password from user_details where user_name in ? and password in ?";
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt = con.prepareStatement(query);
-	pstmt.setString(1, uname);
-	pstmt.setString(2, pass);
+	pstmt.setString(1, u1.getUser_name());
+	pstmt.setString(2, u1.getPassword());
 	ResultSet rs = pstmt.executeQuery();
 	if(rs.next()) {
 		String query1="select user_role from user_details where user_name in ?";
 		PreparedStatement pstmt1 = con.prepareStatement(query1);
-		pstmt1.setString(1, uname);
+		pstmt1.setString(1, u1.getUser_name());
 		ResultSet rs1 = pstmt1.executeQuery();
 		rs1.next();
 		return rs1.getString(1);

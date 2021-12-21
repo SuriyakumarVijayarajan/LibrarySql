@@ -8,10 +8,16 @@ public class Books {
 	private String author;
 	private int price;
 	private String rack_num;
-	private String date_arrival;
 	private String availability;
+	private String user_name;
 	
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	public String getAvailability() {
 		return availability;
 	}
@@ -19,7 +25,7 @@ public class Books {
 		this.availability = availability;
 	}
 	public Books(String book_code, String book_title, String category, String author, int price,
-			String rack_num, String date_arrival) {
+			String rack_num) {
 		super();
 		this.book_code = book_code;
 		this.book_title = book_title;
@@ -27,19 +33,18 @@ public class Books {
 		this.author = author;
 		this.price = price;
 		this.rack_num = rack_num;
-		this.date_arrival = date_arrival;
 	}
 	public Books() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Books(String book_code) {
+	public Books(String book_title) {
 		// TODO Auto-generated constructor stub
-		this.book_code=book_code;
+		this.book_title=book_title;
 	}
-	public Books(String book_code, String availability) {
-		this.book_code=book_code;
-		this.availability=availability;
+	public Books(String book_title, String user_name) {
+		this.book_title=book_title;
+		this.user_name=user_name;
 		// TODO Auto-generated constructor stub
 	}
 	public String getBook_code() {
@@ -78,12 +83,7 @@ public class Books {
 	public void setRack_num(String rack_num) {
 		this.rack_num = rack_num;
 	}
-	public String getDate_arrival() {
-		return date_arrival;
-	}
-	public void setDate_arrival(String date_arrival) {
-		this.date_arrival = date_arrival;
-	}
+
 	
 	
 	public Books( String book_title, String category,String author) {

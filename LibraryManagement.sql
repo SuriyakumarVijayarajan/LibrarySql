@@ -93,9 +93,9 @@ alter table book_issue_details modify fine_range as (round(months_between(date_r
 
 commit;
 alter table fine_details modify fine_range varchar(20);
-alter table book_issue_details modify fine_range varchar(20);
+alter table book_issue_details modify user_name varchar(20);
 
-alter table fine_details rename column fine_range to fine_range_in_month;
+alter table book_issue_details rename column book_code to book_title;
 
 insert into book_details (book_code,book_title,category,author,price,rack_num,date_arrival,supplier_id) values ('5006','Timon of Athens','Novel','Shakespeare','570','2','09-08-2018','003');
 insert into book_details values ('5002','You Can Win','Philosophy','Shivkhera',350,'3','15-09-2017','003');
@@ -133,9 +133,8 @@ select * from book_issue_details;
 select * from fine_details;
 select * from supplier_details;
 select * from order_book;
-alter table book_details drop column supplier_id;
 commit;
-drop table supplier_details;
-
 update book_details set availability='available';
+update book_details set user_name=null;
+update book_details set book_issue_no=0;
 update order_book set supplier_name='deepan' where user_name='hari';

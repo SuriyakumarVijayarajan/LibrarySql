@@ -25,8 +25,9 @@ public class Fines {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Fines(int fine_amount) {
+	public Fines(int fine_range) {
 		// TODO Auto-generated constructor stub
+		this.fine_range=fine_range;
 	}
 	
 

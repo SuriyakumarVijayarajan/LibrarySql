@@ -49,8 +49,7 @@ public void delete(Fines p2) throws SQLException, ClassNotFoundException {
 		
 		System.out.println(i+"rows deleted successfully");
 	}
-
-public int fineCalculation(int userFine) {
+public int fineCalculation(Fines f1) {
 	// TODO Auto-generated method stub
 	String query="select fine_amount from fine_details where fine_range_in_month in ?";
 	Connection con = null;
@@ -71,7 +70,7 @@ public int fineCalculation(int userFine) {
 		e3.printStackTrace();
 	}
 	try {
-		pstmt.setInt(1,userFine);
+		pstmt.setInt(1,f1.getFine_range());
 	} catch (SQLException e2) {
 		// TODO Auto-generated catch block
 		e2.printStackTrace();

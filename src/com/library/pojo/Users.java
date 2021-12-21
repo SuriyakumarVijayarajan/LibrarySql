@@ -110,6 +110,12 @@ public class Users {
 		this.user_id=user_id;
 	}
 
+	public Users(String user_name, String password) {
+		// TODO Auto-generated constructor stub
+		this.user_name=user_name;
+		this.password=password;
+	}
+
 	@Override
 	public String toString() {
 		return "Users [user_name=" + user_name + ", city=" + city + ", password=" + password + ", mobile_no="

@@ -139,7 +139,8 @@ public class LibraryApp {
 			}while(flag==false);
 			
 			user = new UsersDao();
-			String val = user.fetch(user_name, password);
+			Users u1=new Users(user_name, password);
+			String val = user.fetch(u1);
 			System.out.println(val);
 			if(val.equals("user")) {
 				System.out.println("Welcome "+user_name);
@@ -218,21 +219,87 @@ public class LibraryApp {
 //			
 		case 2:
 			System.out.println("Enter Book_code");
-			String book_code=sc.nextLine();
-			System.out.println("Enter Book Title");
-			String book_title=sc.nextLine();
-			System.out.println("Enter Category");
-			String category=sc.nextLine();
-			System.out.println("Enter Author");
-			String author=sc.nextLine();
-			System.out.println("Enter Price");
-			int price=Integer.parseInt(sc.nextLine());
-			System.out.println("Enter Rack Number");
-			String rack_number=sc.nextLine();
-			System.out.println("Enter Date Arrival");
-			String date_arrival=sc.nextLine();
+			Boolean flag =false;
+			String book_code=null;
+			do {
+				book_code=sc.nextLine();
+				if(book_code.matches("[A-Za-z0-9]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid book code");
+				
+			}while(flag==false);
 			
-			Books p1=new Books(book_code,book_title,category,author,price,rack_number,date_arrival);
+			flag=false;
+			System.out.println("Enter Book Title");
+			String book_title=null;
+			do {
+				book_title=sc.nextLine();
+				if(book_code.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid book_title");
+				
+			}while(flag==false);
+			
+			flag=false;
+			System.out.println("Enter Category");
+			String category=null;
+			do {
+				category=sc.nextLine();
+				if(category.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid category");
+				
+			}while(flag==false);
+			
+			flag=false;
+			System.out.println("Enter Author");
+			String author=null;
+			do {
+				author=sc.nextLine();
+				if(author.matches("[A-Za-z]{2,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid author");
+				
+			}while(flag==false);
+			
+			flag=false;
+			System.out.println("Enter Price");
+			String price1=null;
+			do {
+				book_title=sc.nextLine();
+				if(price1.matches("[0-9]{1,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid price");
+				
+			}while(flag==false);
+			
+			int price=Integer.parseInt(price1);
+			flag=false;
+			System.out.println("Enter Rack Number");
+			String rack_number=null;
+			do {
+				rack_number=sc.nextLine();
+				if(rack_number.matches("[0-9]{1,}")){
+					  flag=true;  
+				  }
+				else
+					System.out.println("Please enter Valid rack_number");
+				
+			}while(flag==false);
+			
+			flag=false;
+			
+			Books p1=new Books(book_code,book_title,category,author,price,rack_number);
 			try {
 				book.insert(p1);
 			} catch (ClassNotFoundException e) {
@@ -315,7 +382,7 @@ public class LibraryApp {
 			
 		case 6: 
 			UsersDao user = new UsersDao();
-			boolean flag =false;
+			flag =false;
 			user_name=null;
 			do {
 				System.out.println("Enter User_Name");
@@ -392,7 +459,7 @@ public class LibraryApp {
 					  flag=true;  
 				  }
 				else
-					System.out.println("Please enter Valid email");
+					System.out.println("Please enter Valid user_role");
 				
 			}while(flag==false);
 			
@@ -479,7 +546,8 @@ public class LibraryApp {
 		case 3:
 			System.out.println("Enter the book Name you want to Borrow");
 			String book_title=sc.nextLine();
-			String availability=book.bookBorrow(book_title);
+			Books b1=new Books(book_title,user_name);
+			String availability=book.bookBorrow(b1);
 			if(availability.equals("available")) {
 				System.out.println("Do you want to borrow the book yes/no");
 				String opinion=sc.nextLine();
@@ -490,10 +558,13 @@ public class LibraryApp {
 				String uname=sc.nextLine();
 				System.out.println("Enter PassWord");
 				String password=sc.nextLine();
-				String adminCheck=user.fetch(uname,password);
+				Users u1=new Users(uname,password);
+				String adminCheck=user.fetch(u1);
 				if(adminCheck.equals("admin")) {
-					book.bookAvail(book_title,user_name);
-					int rackNumber=book.getRack(book_title);
+					b1=new Books(book_title,user_name);
+					book.bookAvail(b1);
+					b1=new Books(book_title);
+					int rackNumber=book.getRack(b1);
 					System.out.println("The book is in Rack number "+rackNumber);
 					System.out.println("Enter book issue no");
 					int book_issue_no=Integer.parseInt(sc.nextLine());
@@ -520,23 +591,32 @@ public class LibraryApp {
 			}
 			else {
 				System.out.println("The book is unavailable");
+				System.out.println("Do you want to Pre Request the book yes/no");
+				String prechoice=sc.nextLine();
+				if(prechoice.equals("yes")) {
+					b1=new Books(book_title,user_name);
+					book.preRequest(b1);
+				}
 			}
 			break;
 		case 4:
 			System.out.println("Enter the name of book you return");
 			book_title=sc.nextLine();
-			book.returnBook(book_title);
+			b1=new Books(book_title);
+			book.returnBook(b1);
 			System.out.println("Hi admin Enter your user_name");
 			String uname=sc.nextLine();
 			System.out.println("Enter PassWord");
 			String password=sc.nextLine();
-			String adminCheck=user.fetch(uname,password);
+			Users u1=new Users(uname,password);
+			String adminCheck=user.fetch(u1);
 			if(adminCheck.equals("admin")) {
 				System.out.println("Enter Date Returned");
 				String date_returned=sc.nextLine();
 				int userFine=bookIssue.returnBookIssue(date_returned,book_title);
 				System.out.println(userFine);
-				int fineAmount=fine.fineCalculation(userFine);
+				Fines f1=new Fines(userFine);
+				int fineAmount=fine.fineCalculation(f1);
 				System.out.println("FineAmount= "+fineAmount);
 				user.update(fineAmount,user_name);
 				
@@ -555,7 +635,8 @@ public class LibraryApp {
 			uname=sc.nextLine();
 			System.out.println("Enter PassWord");
 			password=sc.nextLine();
-			adminCheck=user.fetch(uname,password);
+			u1=new Users(uname,password);
+			adminCheck=user.fetch(u1);
 			if(adminCheck.equals("admin")) {
 				System.out.println("Enter Supplier name");
 				String supplier_name=sc.nextLine();
