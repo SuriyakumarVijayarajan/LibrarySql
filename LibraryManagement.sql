@@ -93,7 +93,7 @@ alter table book_issue_details modify fine_range as (round(months_between(date_r
 
 commit;
 alter table fine_details modify fine_range varchar(20);
-alter table book_issue_details modify user_name varchar(20);
+alter table book_issue_details modify book_title varchar(50);
 
 alter table book_issue_details rename column book_code to book_title;
 
@@ -102,7 +102,7 @@ insert into book_details values ('5002','You Can Win','Philosophy','Shivkhera',3
 
 alter table book_details drop column publication;
 alter table book_details add book_issue_no int default 0 ;
-alter table book_details DROP column mobile_no;
+alter table book_details modify preRequest default 'none';
 alter table user_details drop column date_register;
 alter table user_details add mobile_no int unique;
 alter table user_details add email_id varchar2(30) unique;
@@ -117,7 +117,7 @@ commit;
 
 drop table order_book;
 alter table order_book rename column supplier_id to supplier_name;
-
+alter table book_details drop column date_arrival;
 alter table order_book modify supplier_name varchar2(20);
 commit;
 update user_details set password = 'Sithan@123' where user_name='sithan';
@@ -134,7 +134,11 @@ select * from fine_details;
 select * from supplier_details;
 select * from order_book;
 commit;
-update book_details set availability='available';
+update book_details set availability='unavailable' where book_title in 'Three mistakes of my life';
 update book_details set user_name=null;
 update book_details set book_issue_no=0;
+update book_details set prerequest = 'none' where prerequest is null;
 update order_book set supplier_name='deepan' where user_name='hari';
+
+select * from book_details;
+select book_title from book_details where availability in 'available' and prerequest is  null or prerequest in 'hari';

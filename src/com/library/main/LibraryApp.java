@@ -13,10 +13,13 @@ public class LibraryApp {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
+		
 		System.out.println("Enter your wish 1.register 2.login");
 		String choice=sc.nextLine();
 		UsersDao user = null;
 		BooksDao book=new BooksDao();
+		
+		
 		switch(choice) {
 
 		
@@ -577,7 +580,7 @@ public class LibraryApp {
 					LocalDate date_returned=LocalDate.now();
 					int fine_range_in_month=0;
 					BookIssue p1= new BookIssue(book_issue_no,user_name,book_title,date_issue,date_return,date_returned,fine_range_in_month);
-					book.updateBookIssue(book_title,book_issue_no);
+					 book.updateBookIssue(book_title,book_issue_no);
 					bookIssue.insert(p1);
 					
 				}
