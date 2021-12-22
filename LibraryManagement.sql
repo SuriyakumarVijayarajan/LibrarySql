@@ -17,7 +17,7 @@ RACK_NUM VARCHAR(3),
 DATE_ARRIVAL DATE NOT NULL,
 SUPPLIER_ID VARCHAR(3) NOT NULL
 );
-
+desc book_details;
 
 CREATE TABLE USER_DETAILS(
 USER_ID VARCHAR(10),
@@ -76,7 +76,15 @@ DESC FINE_DETAILS;
 DESC BOOK_DETAILS;
 DESC BOOK_ISSUE_DETAILS;
 DESC ORDER_BOOK;
-
+ALTER TABLE BOOK_ISSUE_DETAILS ADD CONSTRAINT PRIME5 PRIMARY KEY(BOOK_ISSUE_NO);
+ALTER TABLE FINE_DETAILS ADD CONSTRAINT PRIME3 PRIMARY KEY(FINE_RANGE_IN_MONTH);
+ALTER TABLE USER_DETAILS ADD CONSTRAINT PRIME1 PRIMARY KEY(USER_NAME);
+ALTER TABLE USER_DETAILS MODIFY USER_NAME UNIQUE;
+ALTER TABLE USER_DETAILS DROP UNIQUE (USER_NAME);
+ALTER TABLE USER_DETAILS MODIFY PASSWORD UNIQUE;
+ALTER TABLE BOOK_DETAILS ADD CONSTRAINT PRIME4 PRIMARY KEY(BOOK_TITLE);
+ALTER TABLE BOOK_DETAILS MODIFY BOOK_CODE UNIQUE;
+COMMIT;
 
 
 select round(months_between(date_returned,date_return)) as fine_range from book_issue_details;
@@ -88,6 +96,9 @@ update user_details set mobile_no=9089089087,email_id ='balu@gmail.com' where us
 alter table book_issue_details modify fine_range_in_month default 0;
 alter table book_details add user_name varchar2(20) default null;
 alter table book_issue_details modify fine_range as (round(months_between(date_returned,date_return)));
+
+
+
 
 
 
@@ -121,7 +132,7 @@ alter table book_details drop column date_arrival;
 alter table order_book modify supplier_name varchar2(20);
 commit;
 update user_details set password = 'Sithan@123' where user_name='sithan';
-update book_details set availability='available',user_name=null where book_title in 'Three mistakes of my life'; 
+update book_details set availability='available',user_name=null,book_issue_no=0 where book_title in 'Half Girlfriend'; 
 
 Update BOOK_ISSUE_DETAILS set FINE_RANGE_IN_MONTH = (Round(Months_between(DATE_RETURNED,DATE_RETURN)));
 delete book_issue_details where fine_range_in_month in 3;
@@ -134,11 +145,28 @@ select * from fine_details;
 select * from supplier_details;
 select * from order_book;
 commit;
-update book_details set availability='unavailable' where book_title in 'Three mistakes of my life';
+update book_details set availability='available';
 update book_details set user_name=null;
 update book_details set book_issue_no=0;
 update book_details set prerequest = 'none' where prerequest is null;
 update order_book set supplier_name='deepan' where user_name='hari';
 
+create table fine_history(
+user_name varchar2(20),
+fine_amount int,
+collected_time timestamp default current_timestamp);
+commit;
+select * from fine_history;
+select * from user_details;
 select * from book_details;
 select book_title from book_details where availability in 'available' and prerequest is  null or prerequest in 'hari';
+alter table user_details add userWallet int default 1000;
+
+commit;
+select * from user_details;
+select * from book_details;
+select * from book_issue_details;
+select * from fine_details;
+select * from supplier_details;
+select * from order_book;
+select * from fine_history;

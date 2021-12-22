@@ -10,8 +10,15 @@ public class Books {
 	private String rack_num;
 	private String availability;
 	private String user_name;
+	private int book_issue_id;
 	
 	
+	public int getBook_issue_id() {
+		return book_issue_id;
+	}
+	public void setBook_issue_id(int book_issue_id) {
+		this.book_issue_id = book_issue_id;
+	}
 	public String getUser_name() {
 		return user_name;
 	}
@@ -90,6 +97,12 @@ public class Books {
 		this.book_title = book_title;
 		this.category = category;
 		this.author = author;
+	}
+	public Books(String book_title2, int book_issue_no) {
+		// TODO Auto-generated constructor stub
+		this.book_title=book_title2;
+		this.book_issue_id=book_issue_no;
+		
 	}
 	@Override
 	public String toString() {

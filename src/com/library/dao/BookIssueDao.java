@@ -85,9 +85,10 @@ public int returnBookIssue(String date_returned,String book_title) {
 		int rs=pstmt.executeUpdate();
 		pstmt=con.prepareStatement(query1);
 		int rs1=pstmt.executeUpdate();
-		String query2="select fine_range_in_month from book_issue_details where book_title in ?";
+		String query2="select fine_range_in_month from book_issue_details where book_title in ? and date_returned in ?";
 		PreparedStatement pstmt1=con.prepareStatement(query2);
 		pstmt1.setString(1,book_title);
+		pstmt1.setString(2, date_returned);
 		ResultSet rs2=pstmt1.executeQuery();
 		
 		while(rs2.next()) {

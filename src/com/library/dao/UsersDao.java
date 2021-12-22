@@ -111,15 +111,37 @@ public void delete(Users p2) throws SQLException, ClassNotFoundException {
 }
 
 
-public void update(int fineAmount, String user_name) throws ClassNotFoundException, SQLException {
+public void update(Users u2) throws ClassNotFoundException, SQLException {
 	// TODO Auto-generated method stub
 	String query="update user_details set fine_amount=? where user_name=?";
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt=con.prepareStatement(query);
-	pstmt.setInt(1, fineAmount);
-	pstmt.setString(2, user_name);
+	pstmt.setInt(1, u2.getFine_amount());
+	pstmt.setString(2, u2.getUser_name());
 	int i=pstmt.executeUpdate();
 	System.out.println(i);
+	
+	
+}
+public int getFine(Users u3) throws Exception {
+	// TODO Auto-generated method stub
+	String query="Select fine_amount from user_details where user_name in ?";
+	Connection con=ConnectionUtil.getDBConnect();
+	PreparedStatement pstmt=con.prepareStatement(query);
+	pstmt.setString(1, u3.getUser_name());
+	ResultSet rs=pstmt.executeQuery();
+	while(rs.next()) {
+		return rs.getInt(1);
+	}
+	return 0;
+}
+public void setFine(Users u3) throws Exception {
+	// TODO Auto-generated method stub
+	String query="update user_details set fine_amount=0 where user_name in ?";
+	Connection con=ConnectionUtil.getDBConnect();
+	PreparedStatement pstmt=con.prepareStatement(query);
+	pstmt.setString(1, u3.getUser_name());
+	pstmt.executeUpdate();
 	
 	
 }
