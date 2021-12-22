@@ -12,9 +12,11 @@ import com.library.pojo.*;
 
 public class BookIssueDao {
 	
-	public void insert(BookIssue p1) throws SQLException, ClassNotFoundException {
+	public void insert(BookIssue p1)  {
 		
 		String query="insert into book_issue_details (book_issue_no,user_name,book_title,date_issue,date_return,date_returned) values (?,?,?,?,?,?)";
+		
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -27,12 +29,17 @@ public class BookIssueDao {
 		int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows inserted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void update(BookIssue p1) throws SQLException, ClassNotFoundException {
+	public void update(BookIssue p1)  {
 		
 		String query="update book_issue_details set fine_range_in_month=? where user_name=?";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -42,11 +49,16 @@ public class BookIssueDao {
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows inserted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-public void delete(BookIssue p1) throws SQLException, ClassNotFoundException {
+public void delete(BookIssue p1)  {
 		
 		String query="delete book_issue_details where book_issue_no=?";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -55,6 +67,10 @@ public void delete(BookIssue p1) throws SQLException, ClassNotFoundException {
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows deleted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 public int returnBookIssue(String date_returned,String book_title) {
@@ -64,22 +80,10 @@ public int returnBookIssue(String date_returned,String book_title) {
 	
 	Connection con=null;
 	try {
+		
 		con=ConnectionUtil.getDBConnect();
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	PreparedStatement pstmt = null;
-	try {
+		PreparedStatement pstmt = null;
 		pstmt = con.prepareStatement(query);
-	} catch (SQLException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	try {
 		pstmt.setString(1,date_returned);
 		pstmt.setString(2,book_title);
 		int rs=pstmt.executeUpdate();
@@ -94,7 +98,7 @@ public int returnBookIssue(String date_returned,String book_title) {
 		while(rs2.next()) {
 			return rs2.getInt(1);
 		}
-	} catch (SQLException e) {
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}

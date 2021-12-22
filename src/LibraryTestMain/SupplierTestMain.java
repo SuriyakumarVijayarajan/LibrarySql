@@ -31,7 +31,7 @@ public class SupplierTestMain {
 			String address=sc.nextLine();
 			System.out.println("Enter Contact");
 			long contact=Long.parseLong(sc.nextLine());
-			Suppliers p1=new Suppliers(supplier_id,supplier_name,address,contact);
+			Suppliers p1=new Suppliers(supplier_id,supplier_name,contact);
 			sDao.insert(p1);
 			break;
 			

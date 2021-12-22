@@ -97,13 +97,21 @@ public class LibraryApp {
 						System.out.println("Please enter Valid email");
 
 				} while (flag == false);
+				System.out.println("For registration you have to pay 1000 rupees to recharge your wallet");
+				System.out.println("Do you want to continue pay now yes/no");
+				String choiceReg=sc.nextLine();
+				if(choiceReg.equals("yes")) {
 				Users p1 = new Users(user_name, city, password, mobile_no, email_id);
 				boolean a = user.insert(p1);
 				if (a) {
 					System.out.println("Registration successful");
+					System.out.println();
 				} else {
 					System.out.println("Not registered");
 					break;
+				}}
+				else {
+					System.exit(0);
 				}
 
 				/* Login */
@@ -140,7 +148,7 @@ public class LibraryApp {
 				System.out.println(val);
 				int fineOf = 0;
 				if (val.equals("user")) {
-					Users u3 = new Users(user_name);
+					Users u3 = new Users(fineOf,user_name);
 					try {
 						fineOf = user.getFine(u3);
 					} catch (Exception e) {
@@ -152,6 +160,7 @@ public class LibraryApp {
 						System.out.println("You have to repay now to borrow book");
 						System.out.println("Are you ready to pay yes/no");
 						String borrowChoice = sc.nextLine();
+						u3=new Users(fineOf,user_name);
 						if (borrowChoice.equals("yes")) {
 							try {
 								user.setFine(u3);
@@ -193,10 +202,7 @@ public class LibraryApp {
 		ResultSet rs = null;
 		try {
 			rs = obDao.view(user_name);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}  catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -321,10 +327,7 @@ public class LibraryApp {
 				Books p1 = new Books(book_code, book_title, category, author, price, rack_number);
 				try {
 					book.insert(p1);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -342,10 +345,7 @@ public class LibraryApp {
 				Suppliers s1 = new Suppliers(supplier_name, address, contact);
 				try {
 					supply.insert(s1);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -376,10 +376,7 @@ public class LibraryApp {
 						date_returned, fine_range);
 				try {
 					bookIssue.insert(issue);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -394,10 +391,7 @@ public class LibraryApp {
 				Fines fines = new Fines(fine_range, fine_amount);
 				try {
 					fine.insert(fines);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -489,10 +483,7 @@ public class LibraryApp {
 					if (user_role.equals("supplier")) {
 						supply.insert(p3);
 					}
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -516,10 +507,7 @@ public class LibraryApp {
 			case 8:
 				try {
 					LibraryApp.main(null);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -682,6 +670,7 @@ public class LibraryApp {
 							System.out.println("You have to repay now to borrow book");
 							System.out.println("Are you ready to pay yes/no");
 							String borrowChoice = sc.nextLine();
+							u3=new Users(fineOf,user_name);
 							if (borrowChoice.equals("yes")) {
 								try {
 									user.setFine(u3);

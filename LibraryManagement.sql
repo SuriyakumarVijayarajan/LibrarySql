@@ -161,8 +161,15 @@ select * from user_details;
 select * from book_details;
 select book_title from book_details where availability in 'available' and prerequest is  null or prerequest in 'hari';
 alter table user_details add userWallet int default 1000;
+alter table user_details drop column userWallet;
+update user_details 
+set fine_amount=0,wallet=sum(wallet-25) 
+where user_name in mani;
+
 
 commit;
+
+
 select * from user_details;
 select * from book_details;
 select * from book_issue_details;
@@ -170,3 +177,8 @@ select * from fine_details;
 select * from supplier_details;
 select * from order_book;
 select * from fine_history;
+
+update user_details
+set userwallet = (userwallet - 45)
+where user_name in 'mani';
+delete from fine_history where collected_time like'%07:44:%';

@@ -10,9 +10,10 @@ import com.library.connection.*;
 import com.library.pojo.*;
 
 public class BooksDao {
-	public void insert(Books p1) throws SQLException, ClassNotFoundException {
+	public void insert(Books p1)  {
 		
 		String query="insert into book_details (book_code,book_title,category,author,price,rack_num) values (?,?,?,?,?,?)";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -26,6 +27,10 @@ public class BooksDao {
 		int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows inserted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 //	public ResultSet showBooks(){
@@ -67,41 +72,18 @@ public class BooksDao {
 		Connection con = null;
 		try {
 			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		PreparedStatement pstmt = null;
-		try {
 			pstmt = con.prepareStatement(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		ResultSet rs=null;
-		try {
 			rs=pstmt.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			while(rs.next())
 			{
 				Books product = null;
-				try {
 					product = new Books(rs.getString(1),rs.getString(2),rs.getString(3));
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				productsList.add(product);
 				
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -114,29 +96,15 @@ public class BooksDao {
 		String query="select book_title from book_details where author in ?";
 		Connection con;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ConnectionUtil.getDBConnect();
 			pstmt = con.prepareStatement(query);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		try {
 			pstmt.setString(1, author);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		ResultSet rs=null;
-		try {
+		
 			rs = pstmt.executeQuery();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -149,30 +117,16 @@ public class BooksDao {
 		String query="select book_title from book_details where category in ?";
 		Connection con;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		try {
 			con = ConnectionUtil.getDBConnect();
 			pstmt = con.prepareStatement(query);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		try {
 			pstmt.setString(1, category);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		ResultSet rs=null;
-		try {
+		
 			rs = pstmt.executeQuery();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -182,9 +136,10 @@ public class BooksDao {
 		
 	}
 	
-public void delete(Books p2) throws SQLException, ClassNotFoundException {
+public void delete(Books p2) {
 		
 		String query="delete book_details where book_title=?";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -193,6 +148,10 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows deleted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -202,23 +161,15 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		String query="update book_details set availability=? where book_code=?";
 		Connection con = null;
-		try {
-			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PreparedStatement pstmt = null;
 		 int i = 0;
 		try {
+			con = ConnectionUtil.getDBConnect();
+		PreparedStatement pstmt = null;
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,p2.getAvailability());
 			pstmt.setString(2, p2.getBook_code());
 			i = pstmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -238,31 +189,10 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		try {
-			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 		    pstmt=con.prepareStatement(query);
 		    pstmt.setString(1, b1.getBook_title());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		ResultSet rs=null;
-		
-		try {
 			rs=pstmt.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
 			while(rs.next()) {
 				if(rs.getString(1).equals("available")&&(rs.getString(2).equals(b1.getUser_name())||rs.getString(2).equals("none"))) {
 					System.out.println(b1.getBook_title()+" is available");
@@ -271,7 +201,7 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 				}
 				
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -282,44 +212,23 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 
 	public int getRack(Books b1) {
 		// TODO Auto-generated method stub
-		String query="select rack_num from book_details where book_title in ?";
+		String query = "select rack_num from book_details where book_title in ?";
 		Connection con = null;
-		PreparedStatement pstmt=null;
+		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-		    pstmt=con.prepareStatement(query);
-		    pstmt.setString(1, b1.getBook_title());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ResultSet rs=null;
-		
-		try {
-			rs=pstmt.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			while(rs.next()) {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b1.getBook_title());
+			ResultSet rs = null;
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
 				return rs.getInt(1);
-				}
-				
-		} catch (SQLException e) {
+			}
+
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return 0;
 	}
 
@@ -328,28 +237,15 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		String query="update book_details set availability='unavailable',user_name=? where book_title in ?";
 		Connection con = null;
 		PreparedStatement pstmt=null;
+		int rs=0;
 		try {
 			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 		    pstmt=con.prepareStatement(query);
 		    pstmt.setString(1, b1.getUser_name());
 		    pstmt.setString(2, b1.getBook_title());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int rs=0;
 		
-		try {
 			rs=pstmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -360,81 +256,51 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 	
 	public void updateBookIssue(Books b2) {
 		// TODO Auto-generated method stub
-		String query="update book_details set book_issue_no=? where book_title=?";
+		String query = "update book_details set book_issue_no=? where book_title=?";
 		Connection con = null;
+		int i = 0;
 		try {
 			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PreparedStatement pstmt = null;
-		 int i = 0;
-		try {
+			PreparedStatement pstmt = null;
+			
+
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1,b2.getBook_issue_id());
-			pstmt.setString(2,b2.getBook_title());
+			pstmt.setInt(1, b2.getBook_issue_id());
+			pstmt.setString(2, b2.getBook_title());
 			i = pstmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-        
-		
-         
-		
-		System.out.println(i+"rows updated successfully");
-		
+
+		System.out.println(i + "rows updated successfully");
+
 	}
 
 	public void returnBook(Books b1) {
 		// TODO Auto-generated method stub
-		String query="update book_details set availability='available',user_name=null,book_issue_no=0 where book_title in ? ";
-		Connection con=null;
+		String query = "update book_details set availability='available',user_name=null,book_issue_no=0 where book_title in ? ";
+		Connection con = null;
 		try {
-			con=ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PreparedStatement pstmt = null;
-		try {
+			con = ConnectionUtil.getDBConnect();
+
+			PreparedStatement pstmt = null;
 			pstmt = con.prepareStatement(query);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			pstmt.setString(1,b1.getBook_title());
-			int rs=pstmt.executeUpdate();
-		} catch (SQLException e) {
+			pstmt.setString(1, b1.getBook_title());
+			int rs = pstmt.executeUpdate();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
-	public void preRequest(Books b1) throws SQLException {
+	public void preRequest(Books b1)  {
 		// TODO Auto-generated method stub
 		String query="update book_details set prerequest=? where book_title in ? and prerequest is null";
 		Connection con = null;
 		try {
 			con = ConnectionUtil.getDBConnect();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		PreparedStatement pstmt=con.prepareStatement(query);
 		pstmt.setString(1, b1.getUser_name());
 		pstmt.setString(2, b1.getBook_title());
@@ -444,6 +310,10 @@ public void delete(Books p2) throws SQLException, ClassNotFoundException {
 		}
 		else {
 			System.out.println("Prerequest un success");
+		}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		

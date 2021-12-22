@@ -97,9 +97,10 @@ public String fetch(Users u1) throws ClassNotFoundException, SQLException {
 //	System.out.println("rows inserted successfully");
 //}
 
-public void delete(Users p2) throws SQLException, ClassNotFoundException {
+public void delete(Users p2)  {
 	
 	String query="delete from user_details where user_id=?";
+	try {
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt = con.prepareStatement(query);
 	
@@ -108,24 +109,34 @@ public void delete(Users p2) throws SQLException, ClassNotFoundException {
      int i = pstmt.executeUpdate();
 	
 	System.out.println(i+"rows deleted successfully");
+	}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 
 
-public void update(Users u2) throws ClassNotFoundException, SQLException {
+public void update(Users u2)  {
 	// TODO Auto-generated method stub
 	String query="update user_details set fine_amount=? where user_name=?";
+	try {
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt=con.prepareStatement(query);
 	pstmt.setInt(1, u2.getFine_amount());
 	pstmt.setString(2, u2.getUser_name());
 	int i=pstmt.executeUpdate();
 	System.out.println(i);
+	}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
 	
 }
-public int getFine(Users u3) throws Exception {
+public int getFine(Users u3)  {
 	// TODO Auto-generated method stub
 	String query="Select fine_amount from user_details where user_name in ?";
+	try {
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt=con.prepareStatement(query);
 	pstmt.setString(1, u3.getUser_name());
@@ -133,15 +144,41 @@ public int getFine(Users u3) throws Exception {
 	while(rs.next()) {
 		return rs.getInt(1);
 	}
+	
+	}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	return 0;
 }
-public void setFine(Users u3) throws Exception {
+public int setFine(Users u3)  {
 	// TODO Auto-generated method stub
-	String query="update user_details set fine_amount=0 where user_name in ?";
+	String query1="select userwallet,fine_amount from user_details where user_name in ?";
+	String query="update user_details set userwallet =?,fine_amount=0 where user_name in ?";
+	try {
 	Connection con=ConnectionUtil.getDBConnect();
-	PreparedStatement pstmt=con.prepareStatement(query);
+	PreparedStatement pstmt=con.prepareStatement(query1);
+	
 	pstmt.setString(1, u3.getUser_name());
-	pstmt.executeUpdate();
+	ResultSet rs=pstmt.executeQuery();
+	int userWallet=0;
+	while(rs.next()) {
+		userWallet=rs.getInt(1)-rs.getInt(2);
+		System.out.println(u3.getFine_amount());
+	
+	}
+	
+	PreparedStatement pstmt1=con.prepareStatement(query);
+	System.out.println(userWallet);
+	pstmt1.setInt(1, userWallet);
+	//pstmt1.setInt(2, u3.getFine_amount());
+	pstmt1.setString(2, u3.getUser_name());
+	pstmt1.executeUpdate();
+	}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return 0;
 	
 	
 }

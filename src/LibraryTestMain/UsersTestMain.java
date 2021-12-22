@@ -102,7 +102,8 @@ public class UsersTestMain {
 			user_name=sc.nextLine();
 			System.out.println("Enter Fine amount");
 			fine_amount=Integer.parseInt(sc.nextLine());
-			uDao.update(fine_amount,user_name);
+			Users u1=new Users(fine_amount,user_name);
+			uDao.update(u1);
 		    break;
 			
 		case 3: 

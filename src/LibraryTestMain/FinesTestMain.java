@@ -10,9 +10,10 @@ import com.library.pojo.*;
 
 public class FinesTestMain {
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		System.out.println("Connection established");
 		FinesDao fDao = new FinesDao();
@@ -42,7 +43,11 @@ public class FinesTestMain {
 				fDao.delete(p3);
 				break;
 				
-		}				
+		}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 				
 		

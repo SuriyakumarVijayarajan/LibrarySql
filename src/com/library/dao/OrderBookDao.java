@@ -11,9 +11,10 @@ import com.library.pojo.Suppliers;
 
 public class OrderBookDao {
 	
-	public void insert(OrderBook p1) throws SQLException, ClassNotFoundException {
+	public void insert(OrderBook p1)  {
 		
 		String query="insert into order_book (user_name,book_name,author,supplier_name) values (?,?,?,?)";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -26,12 +27,17 @@ public class OrderBookDao {
 		int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows inserted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void update(String supplier_name,String book_name) throws SQLException, ClassNotFoundException {
+	public void update(String supplier_name,String book_name)  {
 		
 		String query="update order_book set supplier_name=? where book_name=?";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -41,11 +47,16 @@ public class OrderBookDao {
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows updated successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-public void delete(String book_name) throws SQLException, ClassNotFoundException {
+public void delete(String book_name)  {
 		
 		String query="delete order_book where book_name=?";
+		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
 		
@@ -54,15 +65,25 @@ public void delete(String book_name) throws SQLException, ClassNotFoundException
          int i = pstmt.executeUpdate();
 		
 		System.out.println(i+"rows deleted successfully");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-public ResultSet view(String user_name) throws SQLException, ClassNotFoundException {
+public ResultSet view(String user_name)  {
 	// TODO Auto-generated method stub
 	String query="select * from order_book where supplier_name in ?";
+	ResultSet rs=null;
+	try {
 	Connection con=ConnectionUtil.getDBConnect();
 	PreparedStatement pstmt=con.prepareStatement(query);
 	pstmt.setString(1, user_name);
-	ResultSet rs=pstmt.executeQuery();
+	rs=pstmt.executeQuery();
+	}catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	return rs;
 	
 }	

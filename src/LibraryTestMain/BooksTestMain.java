@@ -34,11 +34,7 @@ public class BooksTestMain {
 			int price=Integer.parseInt(sc.nextLine());
 			System.out.println("Enter Rack Number");
 			String rack_number=sc.nextLine();
-			System.out.println("Enter Date Arrival");
-			String date_arrival=sc.nextLine();
-			System.out.println("Enter Supplier Id");
-			String supplier_id=sc.nextLine();
-			Books p1=new Books(book_code,book_title,category,author,price,rack_number,date_arrival,supplier_id);
+			Books p1=new Books(book_code,book_title,category,author,price,rack_number);
 			bDao.insert(p1);
 			break;
 			
