@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,7 +11,7 @@ import com.library.dao.BookIssueDao;
 import com.library.model.*;
 
 
-public class BookIssueImpl implements BookIssueDao {
+public class BookIssueDaoImpl implements BookIssueDao {
 	
 	public void insert(BookIssue bookIssue)  {
 		

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.library.connection.*;
-import com.library.impl.*;
+import com.library.dao.impl.*;
 import com.library.model.*;
 
 public class FinesTest {
@@ -16,7 +16,7 @@ public class FinesTest {
 		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		System.out.println("Connection established");
-		FinesImpl fDao = new FinesImpl();
+		FinesDaoImpl fDao = new FinesDaoImpl();
 		System.out.println("Enter your choice");
 		int choice=Integer.parseInt(sc.nextLine());
 		System.out.println("Enter Fine_range");

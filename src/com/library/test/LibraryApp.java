@@ -8,21 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.library.impl.*;
+import com.library.dao.impl.*;
 import com.library.model.*;
 
 public class LibraryApp {
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		boolean flagChoice = true;
 		do {
 			System.out.println("Enter your wish 1.register 2.login");
 			String choice = sc.nextLine();
-			UsersImpl user = null;
-			BooksImpl book = new BooksImpl();
-			FineHistoryImpl fineHistory = new FineHistoryImpl();
+			UsersDaoImpl user = null;
+			BooksDaoImpl book = new BooksDaoImpl();
+			FineHistoryDaoImpl fineHistory = new FineHistoryDaoImpl();
 
 			switch (choice) {
 
@@ -30,7 +30,7 @@ public class LibraryApp {
 
 			case "register":
 			case "1":
-				user = new UsersImpl();
+				user = new UsersDaoImpl();
 				System.out.println("Enter your user_name,city,date_register,password,mobile_no,email_id");
 
 				/* User name */
@@ -142,7 +142,7 @@ public class LibraryApp {
 					flag = true;
 				} while (flag == false);
 
-				user = new UsersImpl();
+				user = new UsersDaoImpl();
 				Users u1 = new Users(user_name, password);
 				String val = user.fetch(u1);
 				System.out.println(val);
@@ -170,13 +170,23 @@ public class LibraryApp {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							libUser(user_name);
+							try {
+								libUser(user_name);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} else
 							System.exit(0);
 
 					} else {
 						System.out.println("Welcome " + user_name);
-						libUser(user_name);
+						try {
+							libUser(user_name);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
 					}
 				} else if (val.equals("admin")) {
 
@@ -184,7 +194,12 @@ public class LibraryApp {
 					LibraryAdmin();
 				} else if (val.equals("supplier")) {
 					System.out.println("Welcome supplier " + user_name);
-					libSupplier(user_name);
+					try {
+						libSupplier(user_name);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 
@@ -198,7 +213,7 @@ public class LibraryApp {
 
 	private static void libSupplier(String user_name) throws SQLException {
 		// TODO Auto-generated method stub
-		OrderBookImpl obDao = new OrderBookImpl();
+		OrderBookDaoImpl obDao = new OrderBookDaoImpl();
 		String book_name=null;
 		String author=null;
 		OrderBook order=new OrderBook(user_name,author,book_name);
@@ -217,10 +232,10 @@ public class LibraryApp {
 
 	private static void LibraryAdmin() {
 		// TODO Auto-generated method stub
-		BooksImpl book = new BooksImpl();
-		SuppliersImpl supply = new SuppliersImpl();
-		BookIssueImpl bookIssue = new BookIssueImpl();
-		FinesImpl fine = new FinesImpl();
+		BooksDaoImpl book = new BooksDaoImpl();
+		SuppliersDaoImpl supply = new SuppliersDaoImpl();
+		BookIssueDaoImpl bookIssue = new BookIssueDaoImpl();
+		FinesDaoImpl fine = new FinesDaoImpl();
 		boolean adminFlag = true;
 		do {
 			System.out.println(
@@ -325,7 +340,18 @@ public class LibraryApp {
 				break;
 			case 3:
 				System.out.println("Enter Supplier Id");
-				String supplier_id = sc.nextLine();
+				flag=false;
+				String supplier_id = null;
+				do {
+					supplier_id = sc.nextLine();
+					if (supplier_id.matches("[A-Za-z0-9\\s]{2,}")) {
+						flag = true;
+					} else
+						System.out.println("Please enter Valid book_title");
+
+				} while (flag == false);
+
+				flag = false;
 				System.out.println("Enter Supplier Name");
 				String supplier_name = sc.nextLine();
 				System.out.println("Enter Address");
@@ -349,14 +375,9 @@ public class LibraryApp {
 				String user_name = sc.nextLine();
 				System.out.println("Enter Book Code");
 				book_code = sc.nextLine();
-//				System.out.println("Enter Date Issue");
-//				String date_issue1 = sc.nextLine();
 				LocalDate date_issue = LocalDate.now();
-//				System.out.println("Enter Date Return");
-//				String date_return1 = sc.nextLine();
 				LocalDate date_return = date_issue.plusMonths(3);
 				System.out.println("Enter Date Returned");
-//				String date_returned1 = sc.nextLine();
 				String date_returned =date_issue.plusMonths(3).toString();
 				System.out.println("Enter Fine Range");
 				int fine_range = Integer.parseInt(sc.nextLine());
@@ -386,7 +407,7 @@ public class LibraryApp {
 				break;
 
 			case 6:
-				UsersImpl user = new UsersImpl();
+				UsersDaoImpl user = new UsersDaoImpl();
 				flag = false;
 				user_name = null;
 				do {
@@ -484,7 +505,7 @@ public class LibraryApp {
 
 			case 7:
 				System.out.println("Fine History");
-				FineHistoryImpl fineHist = new FineHistoryImpl();
+				FineHistoryDaoImpl fineHist = new FineHistoryDaoImpl();
 				List<FineHistory> FineList = new ArrayList<>();
 				FineList = fineHist.view();
 				for (int i = 0; i < FineList.size(); i++) {
@@ -517,12 +538,12 @@ public class LibraryApp {
 		do {
 			System.out.println("1.Search Book 2.View Book 3.Borrow Book 4.Return Book 5.Request New book 6.Home 7.exit");
 			Scanner sc = new Scanner(System.in);
-			UsersImpl user = new UsersImpl();
-			BooksImpl book = new BooksImpl();
-			SuppliersImpl supply = new SuppliersImpl();
-			BookIssueImpl bookIssue = new BookIssueImpl();
-			FinesImpl fine = new FinesImpl();
-			OrderBookImpl obDao = new OrderBookImpl();
+			UsersDaoImpl user = new UsersDaoImpl();
+			BooksDaoImpl book = new BooksDaoImpl();
+			SuppliersDaoImpl supply = new SuppliersDaoImpl();
+			BookIssueDaoImpl bookIssue = new BookIssueDaoImpl();
+			FinesDaoImpl fine = new FinesDaoImpl();
+			OrderBookDaoImpl obDao = new OrderBookDaoImpl();
 
 			int choice = Integer.parseInt(sc.nextLine());
 			System.out.println(choice);
@@ -592,11 +613,7 @@ public class LibraryApp {
 							b1 = new Books(book_title);
 							int rackNumber = book.getRack(b1);
 							System.out.println("The book is in Rack number " + rackNumber);
-//							System.out.println("Enter Date Issue");
-//							String date_issue1 = sc.nextLine();
 							LocalDate date_issue = LocalDate.now();
-//							System.out.println("Enter Date Return");
-//							String date_return1 = sc.nextLine();
 							LocalDate date_return = date_issue.plusMonths(3);
 							String date_returned = date_return.toString();
 							int fine_range_in_month = 0;
@@ -653,7 +670,7 @@ public class LibraryApp {
 						user.update(u2);
 						Users u3 = new Users(user_name);
 						int fineOf = 0;
-						FineHistoryImpl fineHistory = new FineHistoryImpl();
+						FineHistoryDaoImpl fineHistory = new FineHistoryDaoImpl();
 						try {
 							fineOf = user.getFine(u3);
 						} catch (Exception e) {

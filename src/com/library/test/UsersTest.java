@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.library.connection.*;
-import com.library.impl.*;
+import com.library.dao.impl.*;
 import com.library.model.*;
 
 public class UsersTest {
@@ -14,7 +14,7 @@ public class UsersTest {
 		Scanner sc = new Scanner(System.in);
 		Connection con=ConnectionUtil.getDBConnect();
 		System.out.println("Connection established");
-		UsersImpl uDao = new UsersImpl();
+		UsersDaoImpl uDao = new UsersDaoImpl();
 		System.out.println("Enter your choice ");
 		int choice=Integer.parseInt(sc.nextLine());
 		System.out.println("Enter your user_name,city,date_register,password,mobile_no,email_id");

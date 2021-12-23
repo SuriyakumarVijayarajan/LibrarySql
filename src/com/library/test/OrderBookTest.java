@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.library.connection.ConnectionUtil;
-import com.library.impl.OrderBookImpl;
-import com.library.impl.SuppliersImpl;
+import com.library.dao.impl.OrderBookDaoImpl;
+import com.library.dao.impl.SuppliersDaoImpl;
 import com.library.model.OrderBook;
 import com.library.model.Suppliers;
 
@@ -17,7 +17,7 @@ public static void main(String[] args) throws ClassNotFoundException, SQLExcepti
 		Scanner sc = new Scanner(System.in);
 		Connection con=ConnectionUtil.getDBConnect();
 		System.out.println("Connection established");
-		OrderBookImpl obDao = new OrderBookImpl();
+		OrderBookDaoImpl obDao = new OrderBookDaoImpl();
 		System.out.println("Enter your choice");
 		int choice=Integer.parseInt(sc.nextLine());
 		

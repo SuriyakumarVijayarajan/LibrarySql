@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import com.library.connection.*;
-import com.library.impl.*;
+import com.library.dao.impl.*;
 import com.library.model.*;
 
 public class BookIssueTest {
@@ -19,7 +19,7 @@ public class BookIssueTest {
 			Scanner sc = new Scanner(System.in);
 			Connection con=ConnectionUtil.getDBConnect();
 			System.out.println("Connection established");
-			BookIssueImpl biDao = new BookIssueImpl();
+			BookIssueDaoImpl biDao = new BookIssueDaoImpl();
 			System.out.println("Enter your choice ");
 			int choice=Integer.parseInt(sc.nextLine());
 			System.out.println("Enter Book Issue Details");

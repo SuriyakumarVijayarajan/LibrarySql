@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import com.library.connection.ConnectionUtil;
 import com.library.dao.FineHistoryDao;
 import com.library.model.FineHistory;
 
-public class FineHistoryImpl implements FineHistoryDao {
+public class FineHistoryDaoImpl implements FineHistoryDao {
 
 	public void insert(FineHistory fineHistory) {
 		// TODO Auto-generated method stub

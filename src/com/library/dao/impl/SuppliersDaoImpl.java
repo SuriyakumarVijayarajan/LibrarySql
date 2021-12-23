@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import com.library.connection.*;
 import com.library.dao.SuppliersDao;
 import com.library.model.*;
 
-public class SuppliersImpl implements SuppliersDao{
+public class SuppliersDaoImpl implements SuppliersDao{
 	public void insert(Suppliers supply)  {
 		
 		 String   query="insert into supplier_details (supplier_name,address,contact) values (?,?,?)";

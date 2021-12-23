@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.library.connection.*;
-import com.library.impl.*;
+import com.library.dao.impl.*;
 import com.library.model.*;
 
 public class SupplierTest {
@@ -15,7 +15,7 @@ public class SupplierTest {
 		Scanner sc = new Scanner(System.in);
 		Connection con=ConnectionUtil.getDBConnect();
 		System.out.println("Connection established");
-		SuppliersImpl sDao = new SuppliersImpl();
+		SuppliersDaoImpl sDao = new SuppliersDaoImpl();
 		System.out.println("Enter your choice");
 		int choice=Integer.parseInt(sc.nextLine());
 		

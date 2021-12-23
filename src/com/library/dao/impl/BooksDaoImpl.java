@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import com.library.connection.*;
 import com.library.dao.BooksDao;
 import com.library.model.*;
 
-public class BooksImpl implements BooksDao {
+public class BooksDaoImpl implements BooksDao {
 	public void insert(Books book)  {
 		
 		String query="insert into book_details (book_code,book_title,category,author,price,rack_num) values (?,?,?,?,?,?)";

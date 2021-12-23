@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import com.library.connection.*;
 import com.library.dao.UsersDao;
 import com.library.model.*;
 
-public class UsersImpl implements UsersDao{
+public class UsersDaoImpl implements UsersDao{
 	public boolean insert(Users user)  {
 		
 		String query="insert into user_details (user_name,city,password,mobile_no,email_id) values (?,?,?,?,?)";

@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import com.library.connection.*;
 import com.library.dao.FinesDao;
 import com.library.model.*;
 
-public class FinesImpl implements FinesDao {
+public class FinesDaoImpl implements FinesDao {
 	public void insert(Fines fine)  {
 
 		String query = "insert into fine_details (fine_range_in_month,fine_amount) values (?,?)";

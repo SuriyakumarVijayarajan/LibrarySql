@@ -1,4 +1,4 @@
-package com.library.impl;
+package com.library.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import com.library.dao.OrderBookDao;
 import com.library.model.OrderBook;
 import com.library.model.Suppliers;
 
-public class OrderBookImpl implements OrderBookDao {
+public class OrderBookDaoImpl implements OrderBookDao {
 	
 	public void insert(OrderBook orderBook)  {
 		
