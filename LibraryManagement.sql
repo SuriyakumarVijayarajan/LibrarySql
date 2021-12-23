@@ -177,6 +177,14 @@ select * from fine_details;
 select * from supplier_details;
 select * from order_book;
 select * from fine_history;
+commit;
+create sequence biseq start with 101 increment by 1; 
+alter table book_issue_details modify book_issue_no int default BISEQ.nextval;
+alter table book_issue_details drop column book_issue_no;
+delete from book_issue_details where fine_range_in_month in 12;
+alter table book_issue_details add book_issue_no int generated always as identity(start with 1 increment by 1);
+update book_details set book_issue_no=14 where book_code=5002;
+
 
 update user_details
 set userwallet = (userwallet - 45)
