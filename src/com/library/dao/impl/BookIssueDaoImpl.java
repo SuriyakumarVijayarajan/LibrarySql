@@ -48,7 +48,7 @@ public class BookIssueDaoImpl implements BookIssueDao {
 		
          int i = pstmt.executeUpdate();
 		
-		System.out.println(i+"rows inserted successfully");
+		System.out.println(i+"rows updated successfully");
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public int returnBookIssue(BookIssue bookIssue) {
 		con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = null;
 		pstmt = con.prepareStatement(query);
-		pstmt.setString(1,bookIssue.getDate_returned());
+		pstmt.setDate(1, java.sql.Date.valueOf(bookIssue.getDate_returned()));
 		pstmt.setInt(2,bookIssue.getBook_issue_id());
 		int rs=pstmt.executeUpdate();
 		pstmt=con.prepareStatement(query1);

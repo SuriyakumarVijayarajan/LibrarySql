@@ -101,7 +101,7 @@ public class BooksDaoImpl implements BooksDao {
 		try {
 			con = ConnectionUtil.getDBConnect();
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, books.getBook_title());
+			pstmt.setString(1, books.getAuthor());
 		
 		
 			rs = pstmt.executeQuery();

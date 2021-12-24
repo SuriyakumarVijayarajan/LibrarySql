@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.library.dao.impl.*;
+import com.library.exception.NumberFormatException1;
 import com.library.model.*;
 
 public class LibraryApp {
@@ -378,7 +379,7 @@ public class LibraryApp {
 				LocalDate date_issue = LocalDate.now();
 				LocalDate date_return = date_issue.plusMonths(3);
 				System.out.println("Enter Date Returned");
-				String date_returned =date_issue.plusMonths(3).toString();
+				LocalDate date_returned =date_issue.plusMonths(3);
 				System.out.println("Enter Fine Range");
 				int fine_range = Integer.parseInt(sc.nextLine());
 				BookIssue issue = new BookIssue( user_name, book_code, date_issue, date_return,date_returned, fine_range);
@@ -533,7 +534,7 @@ public class LibraryApp {
 
 	}
 
-	public static void libUser(String user_name) throws ClassNotFoundException, SQLException {
+	public static void libUser(String user_name) throws ClassNotFoundException, SQLException, NumberFormatException1 {
 		boolean userFlag = true;
 		do {
 			System.out.println("1.Search Book 2.View Book 3.Borrow Book 4.Return Book 5.Request New book 6.Home 7.exit");
@@ -550,12 +551,24 @@ public class LibraryApp {
 			switch (choice) {
 			case 1:
 				System.out.println("Search book by 1.Author 2.Category");
-				int choice1 = Integer.parseInt(sc.nextLine());
+				String choice2 = sc.nextLine();
+				if (!choice2.matches("([0-9])")) {
+					throw new NumberFormatException1("The Input only allow number");
+				}
+				int choice1=Integer.parseInt(choice2);
+				
+				
 				switch (choice1) {
 				case 1:
 					String category = null,book_title=null,author=null;
-					System.out.println("Enter Author Name");
-					author = sc.nextLine();
+					boolean flag = false;
+					do {
+						System.out.println("Enter the author name");
+						author = sc.nextLine();
+						if (author.matches("([a-zA-Z\\s]{3,})")) {
+							flag = true;
+						} 
+					} while (flag == false);
 					Books books=new Books(book_title,category,author);
 					ResultSet rs = book.authorFetch(books);
 					while (rs.next()) {
@@ -565,10 +578,18 @@ public class LibraryApp {
 					libUser(user_name);
 					break;
 				case 2:
-					System.out.println("Enter Category");
+					
 					book_title=null;
 					author=null;
-					category = sc.nextLine();
+					category =null;
+					flag = false;
+					do {
+						System.out.println("Enter the category name");
+						category = sc.nextLine();
+						if (category.matches("([a-zA-Z\\s]{3,})")) {
+							flag = true;
+						} 
+					} while (flag == false);
 					books=new Books(book_title,category,author);
 					rs = book.categoryFetch(books);
 					while (rs.next()) {
@@ -615,7 +636,7 @@ public class LibraryApp {
 							System.out.println("The book is in Rack number " + rackNumber);
 							LocalDate date_issue = LocalDate.now();
 							LocalDate date_return = date_issue.plusMonths(3);
-							String date_returned = date_return.toString();
+							LocalDate date_returned = date_return;
 							int fine_range_in_month = 0;
 							BookIssue p1 = new BookIssue(user_name, book_title, date_issue, date_return,date_returned, fine_range_in_month);
 
@@ -658,8 +679,16 @@ public class LibraryApp {
 					Users u1 = new Users(uname, password);
 					String adminCheck = user.fetch(u1);
 					if (adminCheck.equals("admin")) {
+						LocalDate date_returned1=null;
+						boolean flag=false;
+						do {
 						System.out.println("Enter Date Returned");
-						String date_returned = sc.nextLine();
+						date_returned1 = LocalDate.parse(sc.nextLine());
+						if(date_returned1.isAfter(LocalDate.now())) {
+							flag=true;
+						}
+						}while(flag=false);
+						LocalDate date_returned=date_returned1;
 						BookIssue bi1=new BookIssue(book_issue_no,date_returned,book_title);
 						int userFine = bookIssue.returnBookIssue(bi1);
 						System.out.println(userFine);
@@ -703,10 +732,28 @@ public class LibraryApp {
 				break;
 
 			case 5:
+				boolean flag=false;
 				System.out.println("Enter the name of book you want to order");
-				String book_name = sc.nextLine();
-				System.out.println("Enter the author name");
-				String author = sc.nextLine();
+				String book_name =null;
+				do {
+					System.out.println("Enter the book name");
+					book_name = sc.nextLine();
+					if (book_name.matches("([a-zA-Z\\s]{3,30})")) {
+						flag = true;
+					} 
+				} while (flag == false);
+				
+				String author =null;
+				flag = false;
+				do {
+					System.out.println("Enter the author name");
+					author = sc.nextLine();
+					if (author.matches("([a-zA-Z\\s]{3,})")) {
+						flag = true;
+					} 
+				} while (flag == false);
+				
+				
 				String supplier_id = null;
 				OrderBook p1 = new OrderBook(user_name, book_name, author, supplier_id);
 				obDao.insert(p1);

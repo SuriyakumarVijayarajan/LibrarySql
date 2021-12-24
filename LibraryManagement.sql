@@ -150,6 +150,18 @@ update book_details set user_name=null;
 update book_details set book_issue_no=0;
 update book_details set prerequest = 'none' where prerequest is null;
 update order_book set supplier_name='deepan' where user_name='hari';
+create sequence biseq start with 101 increment by 1; 
+alter table book_issue_details modify book_issue_no int default BISEQ.nextval;
+alter table book_issue_details drop column book_issue_no;
+delete from book_issue_details where fine_range_in_month in 12;
+alter table book_issue_details add book_issue_no int generated always as identity(start with 1 increment by 1);
+update book_details set book_issue_no=14 where book_code=5002;
+
+
+update user_details
+set userwallet = (userwallet - 45)
+where user_name in 'mani';
+delete from fine_history where collected_time like'%07:44:%';
 
 create table fine_history(
 user_name varchar2(20),
@@ -162,6 +174,9 @@ select * from book_details;
 select book_title from book_details where availability in 'available' and prerequest is  null or prerequest in 'hari';
 alter table user_details add userWallet int default 1000;
 alter table user_details drop column userWallet;
+alter table book_issue_details modify date_issue default sysdate;
+alter table book_issue_details modify date_returned default add_months(sysdate,3);
+insert into book_issue_details (user_name,book_title) values ('kamal','King Lear');
 update user_details 
 set fine_amount=0,wallet=sum(wallet-25) 
 where user_name in mani;
@@ -178,15 +193,3 @@ select * from supplier_details;
 select * from order_book;
 select * from fine_history;
 commit;
-create sequence biseq start with 101 increment by 1; 
-alter table book_issue_details modify book_issue_no int default BISEQ.nextval;
-alter table book_issue_details drop column book_issue_no;
-delete from book_issue_details where fine_range_in_month in 12;
-alter table book_issue_details add book_issue_no int generated always as identity(start with 1 increment by 1);
-update book_details set book_issue_no=14 where book_code=5002;
-
-
-update user_details
-set userwallet = (userwallet - 45)
-where user_name in 'mani';
-delete from fine_history where collected_time like'%07:44:%';

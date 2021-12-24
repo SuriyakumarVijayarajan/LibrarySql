@@ -41,7 +41,6 @@ public boolean adminInsert(Users user)  {
 		try {
 		Connection con=ConnectionUtil.getDBConnect();
 		PreparedStatement pstmt = con.prepareStatement(query);
-		System.out.println("hi");
 		
 		pstmt.setString(1,user.getUser_name());
 		pstmt.setString(2, user.getCity());
