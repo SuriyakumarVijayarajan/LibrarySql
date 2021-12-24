@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.library.connection.*;
 import com.library.dao.impl.*;
+import com.library.exception.NumberFormatException1;
 import com.library.model.*;
 
 public class FinesTest {
@@ -18,6 +19,20 @@ public class FinesTest {
 		System.out.println("Connection established");
 		FinesDaoImpl fDao = new FinesDaoImpl();
 		System.out.println("Enter your choice");
+		try {
+			System.out.println("Enter your choice");
+		String choice2=sc.nextLine();
+		if (!choice2.matches("([0-9])")) {
+			throw new NumberFormatException1();
+		}}catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+			System.out.println(e);
+		
+				
+		}
+		
+		
 		int choice=Integer.parseInt(sc.nextLine());
 		System.out.println("Enter Fine_range");
 		int fine_range=Integer.parseInt(sc.nextLine());
@@ -42,7 +57,6 @@ public class FinesTest {
 				Fines p3=new Fines(fine_range);
 				fDao.delete(p3);
 				break;
-				
 		}
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
